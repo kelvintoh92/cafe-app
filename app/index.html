@@ -21,7 +21,7 @@
             --white-color: #fff;
             --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             --border-radius: 5px;
-            --font-family: Helvetica, Arial, sans-serif; 
+            --font-family: Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -55,7 +55,7 @@
             object-fit: cover;
             display: block;
         }
-      
+
         #customer-section {
             max-width: 500px;
             margin: 0 auto 20px;
@@ -149,7 +149,7 @@
             flex-direction: column;
             gap: 5px;
         }
-      
+
         .item-details .item-description {
             color: #777;
             font-size: 0.9em;
@@ -171,25 +171,7 @@
             color: var(--primary-color);
             font-size: 1em;
         }
-
-        .item-quantity-controls {
-            grid-column: 3 / 4;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            justify-self: end;
-        }
-
-        .item-quantity-controls input {
-            width: 40px;
-            padding: 6px;
-            border: 1px solid #ccc;
-            border-radius: var(--border-radius);
-            text-align: center;
-            box-sizing: border-box;
-            font-size: 0.9em;
-        }
-
+        
         .item-add-button {
             grid-column: 4 / 5;
             justify-self: end;
@@ -210,6 +192,24 @@
             background-color: var(--primary-color-dark);
         }
 
+        .item-quantity-controls {
+            grid-column: 3 / 4;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            justify-self: end;
+        }
+
+        .item-quantity-controls input {
+            width: 40px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-sizing: border-box;
+            font-size: 0.9em;
+        }
+        
         #order-summary {
             background-color: var(--white-color);
             max-width: 500px;
@@ -321,6 +321,32 @@
             outline-offset: 2px;
         }
 
+        .gelato-size, .gelato-topping {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            font-size: 0.9em;
+            width: 100%;
+            margin: 5px 0;
+        }
+        
+        .menu-item.gelato-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+        
+        .gelato-item .item-details {
+            width: 100%;
+            align-items: center;
+        }
+
+        .gelato-item .item-add-button, .gelato-item .item-quantity-controls {
+            width: 100%;
+        }
+
         /* Responsive layout */
         @media (max-width: 768px) {
             body {
@@ -372,12 +398,12 @@
     <div id="top-banner">
         <img src="https://cdn.glitch.global/f0a1af0e-37fe-4fa9-ae9c-c0115289ff91/WhatsApp%20Image%202025-04-08%20at%209.08.56%20PM.jpeg?v=1744124496966" alt="Banner Image">
     </div>
-  
+
     <h1>Welcome to Studio Cafe by DBMK x GIF</h1>
 
     <div id="customer-section">
         <label for="table-number">Table Number:</label>
-        <input type="number" id="table-number" name="table-number" min="1" max="10" placeholder="Enter table number (1-10)" />  
+        <input type="number" id="table-number" name="table-number" min="1" max="10" placeholder="Enter table number (1-10)" />
         <label for="customer-name">Your Name:</label>
         <input type="text" id="customer-name" placeholder="Enter your name..." />
         <label for="customer-email">Your Email:</label>
@@ -435,7 +461,20 @@
             { name: "French Toast + Gelato (Dark Chocolate Sea Salt)", price: 20.0, category: "Desserts", description: "Rich French toast with a scoop of dark chocolate sea salt gelato." },
             { name: "French Toast + Gelato (Hazelnut Orange)", price: 20.0, category: "Desserts", description: "Delicious French toast served alongside hazelnut orange gelato." },
             { name: "Canelé", price: 8.0, category: "Desserts", description: "A small French pastry with a caramelized crust and a soft, custard center." },
-            { name: "Roasted Soybean (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Nutty and subtly sweet roasted soybean flavored gelato." },
+            {
+                name: "Roasted Soybean (Gelato)",
+                category: "Gelato",
+                flavors: [
+                    { size: "Single Scoop", price: 10.0 },
+                    { size: "Double Scoop", price: 18.0 }
+                ],
+                toppings: [
+                    { name: "No Topping", price: 0.0 },
+                    { name: "Waffle Crumbs", price: 3.0 },
+                    { name: "Mochi", price: 3.0 }
+                ],
+                description: "Nutty and subtly sweet roasted soybean flavored gelato."
+            },
             { name: "Black Sesame (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Intense and nutty black sesame flavored gelato." },
             { name: "Lime Basil (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "A refreshing blend of zesty lime and aromatic basil." },
             { name: "PB&J (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "The nostalgic flavor of peanut butter and jam in a creamy gelato." },
@@ -579,28 +618,68 @@
                 categoryDiv.className = "menu-category";
                 categoryDiv.innerHTML = `<h2>${categoryName}</h2><div class="menu-items"></div>`;
                 const itemsContainer = categoryDiv.querySelector('.menu-items');
-                
+
                 menu.filter(item => item.category === categoryName).forEach(item => {
                     const itemDiv = document.createElement("div");
-                    itemDiv.className = "menu-item";
-                    itemDiv.innerHTML = `
-                        <div class="item-details">
-                            <h3>${item.name}</h3>
-                            ${item.description ? `<p class="item-description">${item.description}</p>` : ''}
-                        </div>
-                        <p class="item-price">RM${item.price.toFixed(2)}</p>
-                        <div class="item-quantity-controls">
-                            <label for="qty-${item.name.replace(/[^a-zA-Z0-9]/g, '')}">Qty:</label>
-                            <input type="number" id="qty-${item.name.replace(/[^a-zA-Z0-9]/g, '')}" value="1" min="1">
-                        </div>
-                        <div class="item-add-button">
-                            <button>Add</button>
-                        </div>
-                    `;
-                    itemDiv.querySelector("button").addEventListener("click", () => {
-                        const quantity = itemDiv.querySelector("input").value;
-                        addToOrder(item, quantity);
-                    });
+
+                    if (categoryName === "Gelato") {
+                        itemDiv.className = "menu-item gelato-item";
+                        itemDiv.innerHTML = `
+                            <div class="item-details">
+                                <h3>${item.name}</h3>
+                                <p class="item-description">${item.description}</p>
+                            </div>
+                            <div>
+                                <label for="size-${item.name.replace(/\s/g, '-')}">Size:</label>
+                                <select id="size-${item.name.replace(/\s/g, '-')}" class="gelato-size">
+                                    ${item.flavors.map(flavor => `<option value="${flavor.price}">${flavor.size} - RM${flavor.price.toFixed(2)}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div>
+                                <label for="topping-${item.name.replace(/\s/g, '-')}">Topping:</label>
+                                <select id="topping-${item.name.replace(/\s/g, '-')}" class="gelato-topping">
+                                    ${item.toppings.map(topping => `<option value="${topping.price}">${topping.name} - RM${topping.price.toFixed(2)}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="item-quantity-controls">
+                                <label for="qty-${item.name.replace(/\s/g, '')}">Qty:</label>
+                                <input type="number" id="qty-${item.name.replace(/\s/g, '')}" value="1" min="1">
+                            </div>
+                            <div class="item-add-button">
+                                <button>Add</button>
+                            </div>
+                        `;
+                        itemDiv.querySelector("button").addEventListener("click", () => {
+                            const quantity = itemDiv.querySelector("input").value;
+                            const sizeSelect = itemDiv.querySelector(".gelato-size");
+                            const toppingSelect = itemDiv.querySelector(".gelato-topping");
+                            const basePrice = parseFloat(sizeSelect.value);
+                            const toppingPrice = parseFloat(toppingSelect.value);
+                            const newPrice = basePrice + toppingPrice;
+                            const itemName = `${item.name} (${sizeSelect.options[sizeSelect.selectedIndex].text.split(' - ')[0]}, ${toppingSelect.options[toppingSelect.selectedIndex].text.split(' - ')[0]})`;
+                            addToOrder({ name: itemName, price: newPrice }, quantity);
+                        });
+                    } else {
+                        itemDiv.className = "menu-item";
+                        itemDiv.innerHTML = `
+                            <div class="item-details">
+                                <h3>${item.name}</h3>
+                                ${item.description ? `<p class="item-description">${item.description}</p>` : ''}
+                            </div>
+                            <p class="item-price">RM${item.price.toFixed(2)}</p>
+                            <div class="item-quantity-controls">
+                                <label for="qty-${item.name.replace(/[^a-zA-Z0-9]/g, '')}">Qty:</label>
+                                <input type="number" id="qty-${item.name.replace(/[^a-zA-Z0-9]/g, '')}" value="1" min="1">
+                            </div>
+                            <div class="item-add-button">
+                                <button>Add</button>
+                            </div>
+                        `;
+                        itemDiv.querySelector("button").addEventListener("click", () => {
+                            const quantity = itemDiv.querySelector("input").value;
+                            addToOrder(item, quantity);
+                        });
+                    }
                     itemsContainer.appendChild(itemDiv);
                 });
                 menuDiv.appendChild(categoryDiv);

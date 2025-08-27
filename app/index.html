@@ -30,97 +30,64 @@
             padding: 20px;
             background-color: var(--bg-color);
             color: var(--text-color);
-            display: flex; /* Added for centering */
-            flex-direction: column; /* Added for centering */
-            align-items: center; /* Added for centering */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1, h2 {
             text-align: center;
         }
-#top-banner {
-    background-color: var(--bg-color);
-    text-align: center;
-    padding: 0;
-    width: 100%;
-    box-sizing: border-box;
-    display: block; /* Change to block */
-    overflow: hidden;
-    height: 150px; /* Set a desired height for the banner */
-}
 
-#top-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This is the key property */
-    display: block;
-}
+        #top-banner {
+            background-color: var(--bg-color);
+            text-align: center;
+            padding: 0;
+            width: 100%;
+            height: 150px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        #top-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
       
-#top-banner p {
-    margin: 0;
-}
-
-/* Style for the close button (if you have one) */
-#top-banner .close-button {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    color: var(--white-color);
-    font-size: 1.2em;
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
-}
         #customer-section {
             max-width: 500px;
             margin: 0 auto 20px;
             display: flex;
-            flex-direction: column; /* Changed to column for better mobile layout */
+            flex-direction: column;
             gap: 10px;
             align-items: center;
+            width: 100%;
         }
 
         #customer-section label {
-            margin-right: 0; /* Removed right margin for column layout */
-            margin-bottom: 5px; /* Added bottom margin for label spacing */
             font-weight: bold;
-            text-align: left; /* Added left alignment for labels */
-            width: 100%; /* Make labels full width */
+            text-align: left;
+            width: 100%;
         }
 
         #customer-section input {
-            flex: 1;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: var(--border-radius);
             width: 100%;
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
+            box-sizing: border-box;
         }
-      #customer-section label[for="table-number"] {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    text-align: left;
-    width: 100%;
-}
 
-#customer-section input#table-number {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    box-sizing: border-box;
-}
-      
         .notification-email {
-            display: block; /* To put it on a new line */
+            display: block;
             font-size: 0.8em;
             color: #777;
             margin-top: 5px;
         }
+
         #toggle-menu {
             display: block;
             margin: 10px auto 30px;
@@ -132,7 +99,7 @@
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: fit-content; /* Adjust width to content */
+            width: fit-content;
         }
 
         #toggle-menu:hover {
@@ -142,34 +109,26 @@
         #menu {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center categories horizontally */
+            align-items: center;
             margin-bottom: 30px;
-            width: 100%; /* Make menu full width */
+            width: 100%;
         }
 
         .menu-category {
-            width: 100%; /* Make categories full width */
-            max-width: 600px; /* Limit the width of the categories */
-            margin-bottom: 20px; /* Add space between categories */
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
             padding: 15px;
             background: var(--white-color);
             border-radius: 10px;
             box-shadow: var(--box-shadow);
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
-        }
-
-        #menu h2 {
-            text-align: center; /* Center category headings */
-            margin-bottom: 15px;
-            color: var(--text-color);
+            box-sizing: border-box;
         }
 
         .menu-items {
             display: flex;
             flex-direction: column;
-            gap: 15px; /* Increased gap between items */
-            width: 100%;
-            box-sizing: border-box;
+            gap: 15px;
         }
 
         .menu-item {
@@ -178,39 +137,31 @@
             border-radius: var(--border-radius);
             border: 1px solid #eee;
             box-sizing: border-box;
-            display: grid; /* Use grid for better control */
-            grid-template-columns: 1fr auto auto auto; /* Name/Desc | Price | Quantity | Button */
+            display: grid;
+            grid-template-columns: 1fr auto auto auto;
             align-items: center;
             gap: 10px;
         }
 
         .item-details {
-            grid-column: 1 / 2; /* Spans the first column */
+            grid-column: 1 / 2;
             display: flex;
             flex-direction: column;
             gap: 5px;
         }
       
-      .item-details .item-description {
-    color: #777;
-    font-size: 0.9em;
-    line-height: 1.3;
-    margin-top: 5px;
-}
+        .item-details .item-description {
+            color: #777;
+            font-size: 0.9em;
+            line-height: 1.3;
+            margin-top: 5px;
+        }
 
         .item-details h3 {
             margin: 0;
             color: var(--text-color);
             font-size: 1em;
             text-align: left;
-        }
-
-        .item-details p {
-            margin: 0;
-            font-weight: normal;
-            color: #777;
-            font-size: 0.85em;
-            line-height: 1.4;
         }
 
         .item-price {
@@ -226,12 +177,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            justify-self: end; /* Align to the end of its column */
-        }
-
-        .item-quantity-controls label {
-            font-weight: bold;
-            font-size: 0.8em;
+            justify-self: end;
         }
 
         .item-quantity-controls input {
@@ -246,7 +192,7 @@
 
         .item-add-button {
             grid-column: 4 / 5;
-            justify-self: end; /* Align to the end of its column */
+            justify-self: end;
         }
 
         .item-add-button button {
@@ -271,8 +217,8 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: var(--box-shadow);
-            width: 100%; /* Make order summary full width */
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
+            width: 100%;
+            box-sizing: border-box;
         }
 
         #order-summary h3 {
@@ -286,9 +232,36 @@
             margin-bottom: 15px;
         }
 
-        #order-summary li {
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 8px 0;
             border-bottom: 1px solid #eee;
+        }
+
+        .order-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .remove-item-button {
+            background-color: transparent;
+            color: #ff4d4d;
+            border: 1px solid #ff4d4d;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 8px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item-button:hover {
+            background-color: #ff4d4d;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .btn {
@@ -301,7 +274,7 @@
             margin-top: 10px;
             transition: background-color 0.3s ease;
             color: var(--white-color);
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
+            box-sizing: border-box;
         }
 
         #clear-btn {
@@ -323,38 +296,6 @@
         #menu.hidden {
             display: none;
         }
-.order-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.order-details {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Space between price and button */
-}
-
-.remove-item-button {
-  background-color: transparent; /* No background for a clean look */
-  color: #ff4d4d; /* Soft red for a modern aesthetic */
-  border: 1px solid #ff4d4d; /* Adds a subtle border */
-  border-radius: 5px; /* Rounded edges for elegance */
-  cursor: pointer;
-  padding: 5px 8px;
-  font-size: 14px;
-  font-weight: bold;
-  transition: all 0.3s ease; /* Smooth hover effect */
-}
-
-.remove-item-button:hover {
-  background-color: #ff4d4d; /* Highlight with red when hovered */
-  color: white; /* White text for contrast */
-  border: 1px solid #ff4d4d; /* Keep the border the same */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-}
 
         .add-confirmation {
             position: fixed;
@@ -374,7 +315,6 @@
             opacity: 1;
         }
 
-        /* Focus styles for better keyboard navigation */
         button:focus,
         input:focus {
             outline: 2px solid var(--primary-color-dark);
@@ -388,67 +328,66 @@
             }
 
             #menu {
-                align-items: stretch; /* Allow categories to fill width */
+                align-items: stretch;
             }
 
             .menu-category {
-                max-width: 100%; /* Categories take full width */
-            }
-
-            .menu-items {
-                grid-template-columns: 1fr; /* Changed to single column for very small screens */
+                max-width: 100%;
             }
 
             .menu-item {
+                grid-template-columns: 1fr;
+                gap: 10px;
                 padding: 10px;
             }
 
-            .menu-item h3 {
+            .item-details, .item-price, .item-quantity-controls, .item-add-button {
+                grid-column: auto;
+            }
+
+            .item-price, .item-quantity-controls, .item-add-button {
+                justify-self: start;
+            }
+
+            .item-details h3 {
                 font-size: 16px;
             }
 
-            .menu-item p {
+            .item-details .item-description {
                 font-size: 14px;
             }
 
-            .menu-item button {
-                font-size: 12px;
-                padding: 6px 12px;
+            .btn, #toggle-menu {
+                font-size: 14px;
             }
 
             #customer-section,
             #order-summary {
                 max-width: 100%;
             }
-
-            .btn {
-                font-size: 14px;
-            }
         }
     </style>
 </head>
 <body>
-<div id="top-banner">
-    <img src="https://cdn.glitch.global/f0a1af0e-37fe-4fa9-ae9c-c0115289ff91/WhatsApp%20Image%202025-04-08%20at%209.08.56%20PM.jpeg?v=1744124496966" alt="Banner Image" style="max-height: 100px; margin-right: 10px; vertical-align: middle;">
-  </div>
+    <div id="top-banner">
+        <img src="https://cdn.glitch.global/f0a1af0e-37fe-4fa9-ae9c-c0115289ff91/WhatsApp%20Image%202025-04-08%20at%209.08.56%20PM.jpeg?v=1744124496966" alt="Banner Image">
+    </div>
   
     <h1>Welcome to Studio Cafe by DBMK x GIF</h1>
 
     <div id="customer-section">
-            <label for="table-number">Table Number:</label>
-    <input type="number" id="table-number" name="table-number" min="1" max="10" placeholder="Enter table number (1-10)" />  
+        <label for="table-number">Table Number:</label>
+        <input type="number" id="table-number" name="table-number" min="1" max="10" placeholder="Enter table number (1-10)" />  
         <label for="customer-name">Your Name:</label>
         <input type="text" id="customer-name" placeholder="Enter your name..." />
         <label for="customer-email">Your Email:</label>
         <input type="email" id="customer-email" placeholder="Enter your email..." />
         <small class="notification-email">We'll whisk a receipt to your inbox – just pop in your email.</small>
- 
-  </div>
+    </div>
 
     <button id="toggle-menu">Show Menu</button>
 
-    <section id="menu" class="hidden" aria-hidden="true">
-    </section>
+    <section id="menu" class="hidden" aria-hidden="true"></section>
 
     <section id="order-summary">
         <h3>Order Summary</h3>
@@ -461,332 +400,224 @@
 
     <div id="add-confirmation" class="add-confirmation">Item added!</div>
 
-   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "pop-up-cafe-v2.firebaseapp.com",
-        projectId: "pop-up-cafe-v2",
-        storageBucket: "pop-up-cafe-v2.firebasestorage.app",
-        messagingSenderId: "676149927239",
-        appId: "1:676149927239:web:648247bb5c150c9f02c062"
-    };
+        // Firebase and EmailJS Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "pop-up-cafe-v2.firebaseapp.com",
+            projectId: "pop-up-cafe-v2",
+            storageBucket: "pop-up-cafe-v2.firebasestorage.app",
+            messagingSenderId: "676149927239",
+            appId: "1:676149927239:web:648247bb5c150c9f02c062"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);  // Initialize Firestore
+        // Menu Data
+        const menu = [
+            { name: "Black (Hot)", price: 10.0, category: "Drinks", description: "Bold and robust black coffee, served hot." },
+            { name: "Black (Iced)", price: 11.0, category: "Drinks", description: "Refreshing black coffee, chilled to perfection." },
+            { name: "White (Hot)", price: 12.0, category: "Drinks", description: "Smooth black coffee with a touch of milk, served hot." },
+            { name: "White (Iced)", price: 13.0, category: "Drinks", description: "Chilled black coffee with milk for a creamy delight." },
+            { name: "Matcha Latte (Hot)", price: 13.0, category: "Drinks", description: "Finely ground matcha whisked with warm milk." },
+            { name: "Matcha Latte (Iced)", price: 14.0, category: "Drinks", description: "Iced matcha latte, a vibrant and refreshing treat." },
+            { name: "PB & J", price: 9.0, category: "Open Sandwiches", description: "generously spread with homemade creamy peanut butter and raspberry jam. A comforting combination of flavors in every bite." },
+            { name: "Crispy Egg Mayo", price: 10.0, category: "Open Sandwiches", description: "creamy egg mayonnaise served on a perfectly toasted muffin" },
+            { name: "Creamy Mushroom", price: 12.0, category: "Open Sandwiches", description: "Sautéed mushrooms in a rich cream sauce, served on muffin." },
+            { name: "Curly Fries with Cheese Sauce", price: 16.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with cheese sauce." },
+            { name: "Curly Fries with Mentaiko Sauce", price: 18.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with mentaiko mayo sauce." },
+            { name: "Affogato (PB&J)", price: 18.0, category: "Desserts", description: "A scoop of PB&J gelato 'drowned' in a shot of hot espresso." },
+            { name: "Affogato (Dark Choc Sea Salt)", price: 18.0, category: "Desserts", description: "A scoop of Dark Choc Sea Salt gelato ‘drowned’ in a shot of hot espresso." },
+            { name: "Mont Ember", price: 23.0, category: "Desserts", description: "Our classic affogato served with a traditional French canelé." },
+            { name: "French Toast + Gelato (Dark Chocolate Sea Salt)", price: 20.0, category: "Desserts", description: "Rich French toast with a scoop of dark chocolate sea salt gelato." },
+            { name: "French Toast + Gelato (Hazelnut Orange)", price: 20.0, category: "Desserts", description: "Delicious French toast served alongside hazelnut orange gelato." },
+            { name: "Canelé", price: 8.0, category: "Desserts", description: "A small French pastry with a caramelized crust and a soft, custard center." },
+            { name: "Roasted Soybean (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Nutty and subtly sweet roasted soybean flavored gelato." },
+            { name: "Black Sesame (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Intense and nutty black sesame flavored gelato." },
+            { name: "Lime Basil (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "A refreshing blend of zesty lime and aromatic basil." },
+            { name: "PB&J (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "The nostalgic flavor of peanut butter and jam in a creamy gelato." },
+            { name: "Dark Chocolate Sea Salt (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "Rich dark chocolate gelato with a hint of sea salt." },
+            { name: "Hazelnut Orange (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "A delightful combination of roasted caramelized hazelnut and bright orange." },
+        ];
 
-    const menu = [
-        // Drinks
-        { name: "Black (Hot)", price: 10.0, category: "Drinks", description: "Bold and robust black coffee, served hot." },
-        { name: "Black (Iced)", price: 11.0, category: "Drinks", description: "Refreshing black coffee, chilled to perfection." },
-        { name: "White (Hot)", price: 12.0, category: "Drinks", description: "Smooth black coffee with a touch of milk, served hot." },
-        { name: "White (Iced)", price: 13.0, category: "Drinks", description: "Chilled black coffee with milk for a creamy delight." },
-        { name: "Matcha Latte (Hot)", price: 13.0, category: "Drinks", description: "Finely ground matcha whisked with warm milk." },
-        { name: "Matcha Latte (Iced)", price: 14.0, category: "Drinks", description: "Iced matcha latte, a vibrant and refreshing treat." },
-
-        // Open Sandwiches
-        { name: "PB & J", price: 9.0, category: "Open Sandwiches", description: "generously spread with homemade creamy peanut butter and raspberry jam. A comforting combination of flavors in every bite." },
-        { name: "Crispy Egg Mayo", price: 10.0, category: "Open Sandwiches", description: "creamy egg mayonnaise served on a perfectly toasted muffin" },
-        { name: "Creamy Mushroom", price: 12.0, category: "Open Sandwiches", description: "Sautéed mushrooms in a rich cream sauce, served on muffin." },
-
-        // Small Bites
-        { name: "Curly Fries with Cheese Sauce", price: 16.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with cheese sauce." },
-        { name: "Curly Fries with Mentaiko Sauce", price: 18.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with mentaiko mayo sauce." },
-      
-        // Desserts
-        { name: "Affogato (PB&J)", price: 18.0, category: "Desserts", description: "A scoop of PB&J gelato 'drowned' in a shot of hot espresso." },
-        { name: "Affogato (Dark Choc Sea Salt)", price: 18.0, category: "Desserts", description: "A scoop of Dark Choc Sea Salt gelato ‘drowned’ in a shot of hot espresso." },
-        { name: "Mont Ember", price: 23.0, category: "Desserts", description: "Our classic affogato served with a traditional French canelé." },
-        { name: "French Toast + Gelato (Dark Chocolate Sea Salt)", price: 20.0, category: "Desserts", description: "Rich French toast with a scoop of dark chocolate sea salt gelato." },
-        { name: "French Toast + Gelato (Hazelnut Orange)", price: 20.0, category: "Desserts", description: "Delicious French toast served alongside hazelnut orange gelato." },
-        { name: "Canelé", price: 8.0, category: "Desserts", description: "A small French pastry with a caramelized crust and a soft, custard center." },
-
-        // Gelato (Per Scoop)
-        { name: "Roasted Soybean (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Nutty and subtly sweet roasted soybean flavored gelato." },
-        { name: "Black Sesame (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Intense and nutty black sesame flavored gelato." },
-        { name: "Lime Basil (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "A refreshing blend of zesty lime and aromatic basil." },
-        { name: "PB&J (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "The nostalgic flavor of peanut butter and jam in a creamy gelato." },
-        { name: "Dark Chocolate Sea Salt (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "Rich dark chocolate gelato with a hint of sea salt." },
-        { name: "Hazelnut Orange (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "A delightful combination of roasted caramelized hazelnut and bright orange." },
-    ];
-
-    // DOM elements
-    const menuDiv = document.getElementById("menu");
-    const orderList = document.getElementById("order-list");
-    const totalSpan = document.getElementById("total");
-    const clearBtn = document.getElementById("clear-btn");
-    const submitBtn = document.getElementById("submit-btn");
-    const customerNameInput = document.getElementById("customer-name");
-    const customerEmailInput = document.getElementById("customer-email");
-    const toggleBtn = document.getElementById("toggle-menu");
-    const addConfirmationDiv = document.getElementById("add-confirmation");
-     const tableNumberInput = document.getElementById('table-number');
-const enteredTableNumber = tableNumberInput.value;
-
-    let order = [];
-    let menuVisible = false;
-
-    /**
-     * Validates the customer name input.
-     * @returns {boolean} - True if the input is valid, false otherwise.
-     */
-    function validateCustomerDetails() {
-    const customerName = customerNameInput.value.trim();
-    const customerEmail = customerEmailInput.value.trim();
-
-    if (!customerName) {
-        alert("Please enter your name before placing an order.");
-        return false;
-    }
-
-    if (!customerEmail || !validateEmail(customerEmail)) {
-        alert("Please enter a valid email address.");
-        return false;
-    }
-
-    return true;
-}
-
-/**
- * Validates the email address format using a regular expression.
- * @param {string} email - The email address to validate.
- * @returns {boolean} - True if the email is valid, false otherwise.
- */
-function validateEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-}
-
-    /**
-     * Updates the order display with the current items and total.
-     */
-    function updateOrderDisplay() {
-  orderList.innerHTML = ""; // Clear existing items
-  let total = 0;
-
-  order.forEach((item) => {
-    // Create order item container
-    const li = document.createElement("li");
-    li.className = "order-item";
-
-    // Set item details with price and remove button
-    li.innerHTML = `
-      <span>${item.name} x ${item.quantity}</span>
-      <span class="order-details">
-        RM${(item.price * item.quantity).toFixed(2)}
-        <button class="remove-item-button">X</button>
-      </span>
-    `;
-
-    // Attach click event to the "cross" button
-    const removeButton = li.querySelector(".remove-item-button");
-    removeButton.addEventListener("click", () => {
-      order = order.filter(orderItem => orderItem.name !== item.name); // Remove item from order
-      
-      updateOrderDisplay(); // Update order display
-    });
-
-    orderList.appendChild(li); // Add item to the list
-    total += item.price * item.quantity; // Update total
-  });
-
-  totalSpan.textContent = total.toFixed(2); // Display total amount
-}
-
-    /**
-     * Adds an item to the order and updates the display.
-     * Updates quantity if the item already exists.
-     * @param {object} item - The item to add to the order.
-     * @param {number} quantity - The quantity of the item to add.
-     */
-    function addToOrder(item, quantity) {
-        if (!validateCustomerDetails()) {
-            return;
-        }
-
-        const quantityValue = parseInt(quantity, 10);
-        if (isNaN(quantityValue) || quantityValue <= 0) {
-            alert("Please enter a valid quantity.");
-            return;
-        }
-
-        const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
-
-        if (existingItemIndex > -1) {
-            order[existingItemIndex].quantity += quantityValue;
-        } else {
-            order.push({ ...item, quantity: quantityValue });
-        }
-
-        updateOrderDisplay();
-        showConfirmation("Item added!");
-    }
-
-    /**
-     * Displays a temporary confirmation message.
-     * @param {string} message - The message to display.
-     */
-    function showConfirmation(message) {
-        addConfirmationDiv.textContent = message;
-        addConfirmationDiv.classList.add("show");
-        setTimeout(() => {
-            addConfirmationDiv.classList.remove("show");
-        }, 1500); // Duration of the message
-    }
-
-     /**
-     * Clears the current order and updates the display,
-     * but keeps the customer's name and email.
-     */
-    function clearOrder() {
-        order = [];
-        updateOrderDisplay();
-        // Do NOT clear customerNameInput.value or customerEmailInput.value
-   showConfirmation("Items cleared!"); // Show the confirmation message
-    }
-   /**
-     * Submits the order to Firestore and sends a receipt via EmailJS.
-     */
-    async function submitOrder() {
-        if (!validateCustomerDetails()) {
-            return;
-        }
-
-        const customerName = customerNameInput.value.trim();
-        const customerEmail = customerEmailInput.value.trim();
+        // DOM Elements
+        const menuDiv = document.getElementById("menu");
+        const orderList = document.getElementById("order-list");
+        const totalSpan = document.getElementById("total");
+        const clearBtn = document.getElementById("clear-btn");
+        const submitBtn = document.getElementById("submit-btn");
+        const customerNameInput = document.getElementById("customer-name");
+        const customerEmailInput = document.getElementById("customer-email");
+        const toggleBtn = document.getElementById("toggle-menu");
+        const addConfirmationDiv = document.getElementById("add-confirmation");
         const tableNumberInput = document.getElementById('table-number');
-        const tableNumber = tableNumberInput.value.trim(); // Get the table number
 
-        if (!customerEmail) {
-            alert("Please enter your email.");
-            return;
-        }
+        let order = [];
+        let menuVisible = false;
 
-        if (order.length === 0) {
-            alert("Your order is empty.");
-            return;
-        }
+        // Functions
+        const validateEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 
-        const orderData = {
-            customerName,
-            customerEmail,
-            tableNumber: tableNumber || null, // Add the table number to the order data
-            items: order.map(item => ({
-                name: item.name,
-                quantity: item.quantity,
-                price: item.price
-            })),
-            total: parseFloat(totalSpan.textContent),
-            timestamp: new Date()
+        const validateCustomerDetails = () => {
+            const name = customerNameInput.value.trim();
+            const email = customerEmailInput.value.trim();
+            if (!name) {
+                alert("Please enter your name before placing an order.");
+                return false;
+            }
+            if (!email || !validateEmail(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+            return true;
         };
 
-        try {
-            const docRef = await addDoc(collection(db, "orders"), orderData);
-            alert(`Order submitted! Document ID: ${docRef.id}`);
+        const updateOrderDisplay = () => {
+            orderList.innerHTML = "";
+            let total = 0;
+            order.forEach(item => {
+                const li = document.createElement("li");
+                li.className = "order-item";
+                li.innerHTML = `
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span class="order-details">
+                        RM${(item.price * item.quantity).toFixed(2)}
+                        <button class="remove-item-button">X</button>
+                    </span>
+                `;
+                li.querySelector(".remove-item-button").addEventListener("click", () => {
+                    order = order.filter(orderItem => orderItem.name !== item.name);
+                    updateOrderDisplay();
+                });
+                orderList.appendChild(li);
+                total += item.price * item.quantity;
+            });
+            totalSpan.textContent = total.toFixed(2);
+        };
 
-            // Prepare data for EmailJS
-            const emailParams = {
-                to_name: customerName,
-                to_email: customerEmail,
-                order_id: docRef.id,
-                table_number: tableNumber || 'Not specified', // Include table number in email
-                message: order.map(item =>
-                    `${item.name} x ${item.quantity} - RM${(item.price * item.quantity).toFixed(2)}`
-                ).join("\n"),
-                total: `RM${orderData.total.toFixed(2)}`
+        const showConfirmation = (message) => {
+            addConfirmationDiv.textContent = message;
+            addConfirmationDiv.classList.add("show");
+            setTimeout(() => addConfirmationDiv.classList.remove("show"), 1500);
+        };
+
+        const addToOrder = (item, quantity) => {
+            if (!validateCustomerDetails()) return;
+            const quantityValue = parseInt(quantity, 10);
+            if (isNaN(quantityValue) || quantityValue <= 0) {
+                alert("Please enter a valid quantity.");
+                return;
+            }
+            const existingItem = order.find(orderItem => orderItem.name === item.name);
+            if (existingItem) {
+                existingItem.quantity += quantityValue;
+            } else {
+                order.push({ ...item, quantity: quantityValue });
+            }
+            updateOrderDisplay();
+            showConfirmation("Item added!");
+        };
+
+        const clearOrder = () => {
+            order = [];
+            updateOrderDisplay();
+            showConfirmation("Items cleared!");
+        };
+
+        const submitOrder = async () => {
+            if (!validateCustomerDetails() || order.length === 0) {
+                if (order.length === 0) alert("Your order is empty.");
+                return;
+            }
+
+            const orderData = {
+                customerName: customerNameInput.value.trim(),
+                customerEmail: customerEmailInput.value.trim(),
+                tableNumber: tableNumberInput.value.trim() || null,
+                items: order.map(item => ({ name: item.name, quantity: item.quantity, price: item.price })),
+                total: parseFloat(totalSpan.textContent),
+                timestamp: new Date()
             };
 
-            await emailjs.send("service_GIFgelateria", "template_ti1rkn9", emailParams);
+            try {
+                const docRef = await addDoc(collection(db, "orders"), orderData);
+                alert(`Order submitted! Document ID: ${docRef.id}`);
 
-            alert("Receipt sent to your email!");
-            clearOrder();
+                const emailParams = {
+                    to_name: orderData.customerName,
+                    to_email: orderData.customerEmail,
+                    order_id: docRef.id,
+                    table_number: orderData.tableNumber || 'Not specified',
+                    message: order.map(item => `${item.name} x ${item.quantity} - RM${(item.price * item.quantity).toFixed(2)}`).join("\n"),
+                    total: `RM${orderData.total.toFixed(2)}`
+                };
+                await emailjs.send("service_GIFgelateria", "template_ti1rkn9", emailParams);
 
-        } catch (error) {
-            console.error("Error submitting order or sending email:", error);
-            alert("There was an error submitting your order or sending the receipt.");
-        }
-    }
+                alert("Receipt sent to your email!");
+                clearOrder();
+            } catch (error) {
+                console.error("Error submitting order or sending email:", error);
+                alert("There was an error submitting your order or sending the receipt.");
+            }
+        };
 
-    /**
-     * Toggles the visibility of the menu.
-     */
-    function toggleMenu() {
-        menuVisible = !menuVisible;
-        menuDiv.classList.toggle("hidden", !menuVisible);
-        toggleBtn.textContent = menuVisible ? "Hide Menu" : "Show Menu";
-        menuDiv.setAttribute('aria-hidden', !menuVisible);
-    }
+        const toggleMenu = () => {
+            menuVisible = !menuVisible;
+            menuDiv.classList.toggle("hidden", !menuVisible);
+            toggleBtn.textContent = menuVisible ? "Hide Menu" : "Show Menu";
+            menuDiv.setAttribute('aria-hidden', !menuVisible);
+        };
 
-    // Event listeners
-    toggleBtn.addEventListener("click", toggleMenu);
-    clearBtn.addEventListener("click", clearOrder);
-    submitBtn.addEventListener("click", submitOrder);
-
-    /**
-     * Populates the menu with items.
-     */
- function populateMenu() {
-    const menuSection = document.getElementById("menu");
-    menuSection.innerHTML = ''; // Clear existing menu content
-
-    const categories = [
-        { id: "drinks-section", name: "Drinks" },
-        { id: "sandwiches-section", name: "Open Sandwiches" },
-        { id: "bites-section", name: "Small Bites" },
-        { id: "desserts-section", name: "Desserts" },
-        { id: "gelato-section", name: "Gelato (Per Scoop)" }
-    ];
-
-    categories.forEach(category => {
-        const categoryItems = menu.filter(item => item.category === category.name);
-        if (categoryItems.length > 0) {
-            const categoryDiv = document.createElement("div");
-            categoryDiv.id = category.id;
-            categoryDiv.className = "menu-category";
-            categoryDiv.innerHTML = `<h2>${category.name}</h2><div class="menu-items" id="${category.name.toLowerCase().replace(/ /g, '-')}-menu"></div>`;
-            menuSection.appendChild(categoryDiv);
-
-            const itemsContainer = categoryDiv.querySelector('.menu-items');
-            categoryItems.forEach(item => {
-                const div = document.createElement("div");
-                div.className = "menu-item";
-                div.innerHTML = `
-                    <div class="item-details">
-                        <h3>${item.name}</h3>
-                        ${item.description ? `<p class="item-description">${item.description}</p>` : ''}
-                    </div>
-                    <p class="item-price">RM${item.price.toFixed(2)}</p>
-                    <div class="item-quantity-controls">
-                        <label for="quantity-${item.name.replace(/[^a-zA-Z0-9]/g, '')}">Qty:</label>
-                        <input type="number" id="quantity-${item.name.replace(/[^a-zA-Z0-9]/g, '')}" name="quantity-${item.name.replace(/[^a-zA-Z0-9]/g, '')}" value="1" min="1">
-                    </div>
-                    <div class="item-add-button">
-                        <button>Add</button>
-                    </div>
-                `;
-
-                const button = div.querySelector(".item-add-button button");
-                const quantityInput = div.querySelector(`.item-quantity-controls input[name="quantity-${item.name.replace(/[^a-zA-Z0-9]/g, '')}"]`);
-
-                button.addEventListener("click", () => {
-                    addToOrder(item, quantityInput.value);
+        const populateMenu = () => {
+            menuDiv.innerHTML = '';
+            const categories = [...new Set(menu.map(item => item.category))];
+            categories.forEach(categoryName => {
+                const categoryDiv = document.createElement("div");
+                categoryDiv.className = "menu-category";
+                categoryDiv.innerHTML = `<h2>${categoryName}</h2><div class="menu-items"></div>`;
+                const itemsContainer = categoryDiv.querySelector('.menu-items');
+                
+                menu.filter(item => item.category === categoryName).forEach(item => {
+                    const itemDiv = document.createElement("div");
+                    itemDiv.className = "menu-item";
+                    itemDiv.innerHTML = `
+                        <div class="item-details">
+                            <h3>${item.name}</h3>
+                            ${item.description ? `<p class="item-description">${item.description}</p>` : ''}
+                        </div>
+                        <p class="item-price">RM${item.price.toFixed(2)}</p>
+                        <div class="item-quantity-controls">
+                            <label for="qty-${item.name.replace(/[^a-zA-Z0-9]/g, '')}">Qty:</label>
+                            <input type="number" id="qty-${item.name.replace(/[^a-zA-Z0-9]/g, '')}" value="1" min="1">
+                        </div>
+                        <div class="item-add-button">
+                            <button>Add</button>
+                        </div>
+                    `;
+                    itemDiv.querySelector("button").addEventListener("click", () => {
+                        const quantity = itemDiv.querySelector("input").value;
+                        addToOrder(item, quantity);
+                    });
+                    itemsContainer.appendChild(itemDiv);
                 });
-
-                itemsContainer.appendChild(div);
+                menuDiv.appendChild(categoryDiv);
             });
-        }
-    });
-}
+        };
 
-// Initialize the menu
-populateMenu();
-</script>
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  (function(){
-    emailjs.init("apCgXY03qnGQFDXBb"); // Replace with your EmailJS public key
-  })();
-  </script></body></html>
+        // Initialize and Event Listeners
+        populateMenu();
+        toggleBtn.addEventListener("click", toggleMenu);
+        clearBtn.addEventListener("click", clearOrder);
+        submitBtn.addEventListener("click", submitOrder);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("apCgXY03qnGQFDXBb");
+        })();
+    </script>
+</body>
+</html>

@@ -505,7 +505,22 @@
         { name: "Canelé", price: 8.0, category: "Desserts", description: "A small French pastry with a caramelized crust and a soft, custard center." },
 
         // Gelato (Per Scoop)
-        { name: "Roasted Soybean (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Nutty and subtly sweet roasted soybean flavored gelato." },
+        {
+        name: "Gelato",
+        category: "Gelato",
+        description: "Choose your scoop count and flavor(s).",
+        variations: [
+          { label: "1 Scoop", price: 10, maxFlavors: 1 },
+          { label: "2 Scoops", price: 18, maxFlavors: 2 },
+          { label: "3 Scoops", price: 25, maxFlavors: 3 }
+        ],
+        flavors: [
+          "Roasted Soybean", "Black Sesame",
+          "Lime Basil", "PB&J",
+          "Dark Chocolate Sea Salt",
+          "Hazelnut Orange"
+        ]
+      },
         { name: "Black Sesame (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Intense and nutty black sesame flavored gelato." },
         { name: "Lime Basil (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "A refreshing blend of zesty lime and aromatic basil." },
         { name: "PB&J (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "The nostalgic flavor of peanut butter and jam in a creamy gelato." },

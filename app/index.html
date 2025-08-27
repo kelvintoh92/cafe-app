@@ -478,41 +478,25 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);  // Initialize Firestore
 
-    const menu = [
-        // Drinks
-        { name: "Black (Hot)", price: 10.0, category: "Drinks", description: "Bold and robust black coffee, served hot." },
-        { name: "Black (Iced)", price: 11.0, category: "Drinks", description: "Refreshing black coffee, chilled to perfection." },
-        { name: "White (Hot)", price: 12.0, category: "Drinks", description: "Smooth black coffee with a touch of milk, served hot." },
-        { name: "White (Iced)", price: 13.0, category: "Drinks", description: "Chilled black coffee with milk for a creamy delight." },
-        { name: "Matcha Latte (Hot)", price: 13.0, category: "Drinks", description: "Finely ground matcha whisked with warm milk." },
-        { name: "Matcha Latte (Iced)", price: 14.0, category: "Drinks", description: "Iced matcha latte, a vibrant and refreshing treat." },
-
-        // Open Sandwiches
-        { name: "PB & J", price: 9.0, category: "Open Sandwiches", description: "generously spread with homemade creamy peanut butter and raspberry jam. A comforting combination of flavors in every bite." },
-        { name: "Crispy Egg Mayo", price: 10.0, category: "Open Sandwiches", description: "creamy egg mayonnaise served on a perfectly toasted muffin" },
-        { name: "Creamy Mushroom", price: 12.0, category: "Open Sandwiches", description: "Sautéed mushrooms in a rich cream sauce, served on muffin." },
-
-        // Small Bites
-        { name: "Curly Fries with Cheese Sauce", price: 16.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with cheese sauce." },
-        { name: "Curly Fries with Mentaiko Sauce", price: 18.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with mentaiko mayo sauce." },
-      
-        // Desserts
-        { name: "Affogato (PB&J)", price: 18.0, category: "Desserts", description: "A scoop of PB&J gelato 'drowned' in a shot of hot espresso." },
-        { name: "Affogato (Dark Choc Sea Salt)", price: 18.0, category: "Desserts", description: "A scoop of Dark Choc Sea Salt gelato ‘drowned’ in a shot of hot espresso." },
-        { name: "Mont Ember", price: 23.0, category: "Desserts", description: "Our classic affogato served with a traditional French canelé." },
-        { name: "French Toast + Gelato (Dark Chocolate Sea Salt)", price: 20.0, category: "Desserts", description: "Rich French toast with a scoop of dark chocolate sea salt gelato." },
-        { name: "French Toast + Gelato (Hazelnut Orange)", price: 20.0, category: "Desserts", description: "Delicious French toast served alongside hazelnut orange gelato." },
-        { name: "Canelé", price: 8.0, category: "Desserts", description: "A small French pastry with a caramelized crust and a soft, custard center." },
-
-        // Gelato (Per Scoop)
-        { name: "Roasted Soybean (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Nutty and subtly sweet roasted soybean flavored gelato." },
-        { name: "Black Sesame (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Intense and nutty black sesame flavored gelato." },
-        { name: "Lime Basil (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "A refreshing blend of zesty lime and aromatic basil." },
-        { name: "PB&J (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "The nostalgic flavor of peanut butter and jam in a creamy gelato." },
-        { name: "Dark Chocolate Sea Salt (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "Rich dark chocolate gelato with a hint of sea salt." },
-        { name: "Hazelnut Orange (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "A delightful combination of roasted caramelized hazelnut and bright orange." },
-    ];
-
+  const menu = [
+  {
+    name: "Gelato",
+    category: "Gelato",
+    variations: [
+      { label: "Single", price: 5, maxFlavors: 1 },
+      { label: "Double", price: 9, maxFlavors: 2 },
+      { label: "Affogato", price: 7, maxFlavors: 1 }
+    ],
+    // flavour choices customers can pick from
+    flavors: [
+      "Dark Choc Sea Salt",
+      "Roasted Hojicha",
+      "Matcha",
+      "Hazelnut Orange"
+    ]
+  },
+  // …other items without variations stay unchanged
+];
     // DOM elements
     const menuDiv = document.getElementById("menu");
     const orderList = document.getElementById("order-list");
@@ -602,10 +586,21 @@ function validateEmail(email) {
      * @param {object} item - The item to add to the order.
      * @param {number} quantity - The quantity of the item to add.
      */
-    function addToOrder(item, quantity) {
-        if (!validateCustomerDetails()) {
-            return;
-        }
+   unction addToOrder(itemEl, itemData) {
+  const variation = JSON.parse(itemEl.querySelector(".variation-select").value);
+  const flavorSelects = [...itemEl.querySelectorAll(".flavor-container select")]
+    .map(s => s.value);
+  const qty = Number(itemEl.querySelector(".qty-input").value);
+  
+  order.push({
+    name: itemData.name,
+    variation: variation.label,
+    price: variation.price,
+    flavors: flavorSelects,
+    qty
+  });
+  renderOrderSummary();
+}
 
         const quantityValue = parseInt(quantity, 10);
         if (isNaN(quantityValue) || quantityValue <= 0) {
@@ -728,17 +723,47 @@ function validateEmail(email) {
     /**
      * Populates the menu with items.
      */
- function populateMenu() {
-    const menuSection = document.getElementById("menu");
-    menuSection.innerHTML = ''; // Clear existing menu content
+ function createVariationSelect(item) {
+  const sel = document.createElement("select");
+  sel.className = "variation-select";
+  item.variations.forEach(v => {
+    const opt = document.createElement("option");
+    opt.value = JSON.stringify(v); 
+    opt.textContent = `${v.label} — RM ${v.price}`;
+    sel.append(opt);
+  });
+  return sel;
+}
 
-    const categories = [
-        { id: "drinks-section", name: "Drinks" },
-        { id: "sandwiches-section", name: "Open Sandwiches" },
-        { id: "bites-section", name: "Small Bites" },
-        { id: "desserts-section", name: "Desserts" },
-        { id: "gelato-section", name: "Gelato (Per Scoop)" }
-    ];
+       function createFlavorInputs(item, variation) {
+  const container = document.createElement("div");
+  container.className = "flavor-container";
+  for (let i = 0; i < variation.maxFlavors; i++) {
+    const sel = document.createElement("select");
+    sel.innerHTML = item.flavors
+      .map(f => `<option value="${f}">${f}</option>`)
+      .join("");
+    container.append(sel);
+  }
+  return container;
+}
+
+// listen for variation change:
+varSelect.addEventListener("change", e => {
+  // remove old flavor container if exists
+  menuItem.querySelector(".flavor-container")?.remove();
+  const v = JSON.parse(e.target.value);
+  if (v.maxFlavors > 1) {
+    menuItem.append(createFlavorInputs(item, v));
+  }
+});
+
+// in populateMenu()
+if (item.variations) {
+  const varSelect = createVariationSelect(item);
+  menuItem.append(varSelect);
+  menuItem.append(document.createElement("br"));
+}
 
     categories.forEach(category => {
         const categoryItems = menu.filter(item => item.category === category.name);

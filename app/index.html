@@ -142,7 +142,7 @@
             align-items: center;
             gap: 10px;
         }
-
+        
         .item-details {
             grid-column: 1 / 2;
             display: flex;
@@ -156,7 +156,7 @@
             line-height: 1.3;
             margin-top: 5px;
         }
-
+        
         .item-details select {
             width: 100%;
             padding: 8px;
@@ -204,7 +204,7 @@
         .quantity-btn:hover {
             background-color: #ddd;
         }
-
+      
         .quantity-btn[disabled] {
             opacity: 0.5;
             cursor: not-allowed;
@@ -346,7 +346,7 @@
             outline: 2px solid var(--primary-color-dark);
             outline-offset: 2px;
         }
-
+        
         /* Responsive layout */
         @media (max-width: 768px) {
             body {
@@ -702,7 +702,7 @@
                             updateButtonPrice();
                         });
                     }
-
+                    
                     minusBtn.addEventListener("click", () => {
                         if (quantity > 1) {
                             quantity--;
@@ -716,7 +716,7 @@
                         quantityDisplay.textContent = quantity;
                         updateButtonPrice();
                     });
-
+                    
                     addButton.addEventListener("click", () => {
                         let basePrice = parseFloat(priceElement.textContent.replace('RM', ''));
                         let itemName = item.name;
@@ -740,7 +740,7 @@
                         }
 
                         addToOrder({ name: itemName, price: basePrice, quantity: quantity });
-
+                        
                         // Reset quantity to 1 after adding to order
                         quantity = 1;
                         quantityDisplay.textContent = quantity;

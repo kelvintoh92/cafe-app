@@ -156,6 +156,16 @@
             line-height: 1.3;
             margin-top: 5px;
         }
+        
+        .item-details select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            font-size: 0.9em;
+            box-sizing: border-box;
+            margin-top: 5px;
+        }
 
         .item-details h3 {
             margin: 0;
@@ -337,22 +347,6 @@
             outline-offset: 2px;
         }
         
-        /* Specific styles for Gelato item */
-        .gelato-options {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            width: 100%;
-        }
-
-        .gelato-options select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: var(--border-radius);
-            font-size: 0.9em;
-        }
-
         /* Responsive layout */
         @media (max-width: 768px) {
             body {
@@ -450,23 +444,24 @@
 
         // Menu Data
         const menu = [
-            { name: "Black (Hot)", price: 10.0, category: "Drinks", description: "Bold and robust black coffee, served hot." },
-            { name: "Black (Iced)", price: 11.0, category: "Drinks", description: "Refreshing black coffee, chilled to perfection." },
-            { name: "White (Hot)", price: 12.0, category: "Drinks", description: "Smooth black coffee with a touch of milk, served hot." },
-            { name: "White (Iced)", price: 13.0, category: "Drinks", description: "Chilled black coffee with milk for a creamy delight." },
-            { name: "Matcha Latte (Hot)", price: 13.0, category: "Drinks", description: "Finely ground matcha whisked with warm milk." },
-            { name: "Matcha Latte (Iced)", price: 14.0, category: "Drinks", description: "Iced matcha latte, a vibrant and refreshing treat." },
+            { name: "Black", category: "Drinks", options: { "Hot": 10.0, "Iced": 11.0 } },
+            { name: "White", category: "Drinks", options: { "Hot": 12.0, "Iced": 13.0 } },
+            { name: "Matcha Latte", category: "Drinks", options: { "Hot": 13.0, "Iced": 14.0 } },
+            { name: "Hojicha Latte", category: "Drinks", options: { "Hot": 13.0, "Iced": 14.0 } },
+            { name: "Matcha Float", price: 15.0, category: "Drinks", description: "Matcha latte with a scoop of vanilla gelato." },
+
             { name: "PB & J", price: 9.0, category: "Open Sandwiches", description: "generously spread with homemade creamy peanut butter and raspberry jam. A comforting combination of flavors in every bite." },
             { name: "Crispy Egg Mayo", price: 10.0, category: "Open Sandwiches", description: "creamy egg mayonnaise served on a perfectly toasted muffin" },
             { name: "Creamy Mushroom", price: 12.0, category: "Open Sandwiches", description: "Sautéed mushrooms in a rich cream sauce, served on muffin." },
             { name: "Curly Fries with Cheese Sauce", price: 16.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with cheese sauce." },
             { name: "Curly Fries with Mentaiko Sauce", price: 18.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with mentaiko mayo sauce." },
-            { name: "Affogato (PB&J)", price: 18.0, category: "Desserts", description: "A scoop of PB&J gelato 'drowned' in a shot of hot espresso." },
-            { name: "Affogato (Dark Choc Sea Salt)", price: 18.0, category: "Desserts", description: "A scoop of Dark Choc Sea Salt gelato ‘drowned’ in a shot of hot espresso." },
+
+            { name: "Affogato", category: "Desserts", options: { "Dark Choc Sea Salt": 18.0, "Hazelnut Orange": 18.0 }, description: "Your choice of gelato 'drowned' in a shot of hot espresso." },
             { name: "Mont Ember", price: 23.0, category: "Desserts", description: "Our classic affogato served with a traditional French canelé." },
             { name: "French Toast + Gelato (Dark Chocolate Sea Salt)", price: 20.0, category: "Desserts", description: "Rich French toast with a scoop of dark chocolate sea salt gelato." },
             { name: "French Toast + Gelato (Hazelnut Orange)", price: 20.0, category: "Desserts", description: "Delicious French toast served alongside hazelnut orange gelato." },
             { name: "Canelé", price: 8.0, category: "Desserts", description: "A small French pastry with a caramelized crust and a soft, custard center." },
+
             {
                 name: "Gelato",
                 category: "Gelato",
@@ -540,18 +535,13 @@
             setTimeout(() => addConfirmationDiv.classList.remove("show"), 1500);
         };
 
-        const addToOrder = (item, quantity) => {
+        const addToOrder = (item) => {
             if (!validateCustomerDetails()) return;
-            const quantityValue = parseInt(quantity, 10);
-            if (isNaN(quantityValue) || quantityValue <= 0) {
-                alert("Please enter a valid quantity.");
-                return;
-            }
             const existingItem = order.find(orderItem => orderItem.name === item.name);
             if (existingItem) {
-                existingItem.quantity += quantityValue;
+                existingItem.quantity += item.quantity;
             } else {
-                order.push({ ...item, quantity: quantityValue });
+                order.push({ ...item });
             }
             updateOrderDisplay();
             showConfirmation("Item added!");
@@ -618,149 +608,118 @@
 
                 menu.filter(item => item.category === categoryName).forEach(item => {
                     const itemDiv = document.createElement("div");
+                    itemDiv.className = "menu-item";
 
-                    if (categoryName === "Gelato") {
-                        itemDiv.className = "menu-item";
-                        itemDiv.innerHTML = `
-                            <div class="item-details">
-                                <h3>${item.name}</h3>
-                                <div class="gelato-options">
-                                    <label for="size-${item.name.replace(/\s/g, '-')}">Size:</label>
-                                    <select id="size-${item.name.replace(/\s/g, '-')}" class="gelato-size">
-                                        ${item.sizes.map(size => `<option value="${size.price}">${size.size} - RM${size.price.toFixed(2)}</option>`).join('')}
-                                    </select>
-                                    <label for="flavor1-${item.name.replace(/\s/g, '-')}">First Scoop:</label>
-                                    <select id="flavor1-${item.name.replace(/\s/g, '-')}" class="gelato-flavor">
-                                        ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
-                                    </select>
-                                    <div id="flavor2-container" style="display: none;">
-                                        <label for="flavor2-${item.name.replace(/\s/g, '-')}">Second Scoop:</label>
-                                        <select id="flavor2-${item.name.replace(/\s/g, '-')}" class="gelato-flavor">
-                                            ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="item-price">RM${item.sizes[0].price.toFixed(2)}</p>
-                            <div class="item-quantity-controls">
-                                <button class="quantity-btn minus-btn">-</button>
-                                <span class="quantity-display">1</span>
-                                <button class="quantity-btn plus-btn">+</button>
-                            </div>
-                            <div class="item-add-button">
-                                <button>Add RM${item.sizes[0].price.toFixed(2)}</button>
-                            </div>
-                        `;
+                    let detailsHtml = `<h3>${item.name}</h3>`;
+                    let currentPrice = 0;
 
-                        const sizeSelect = itemDiv.querySelector('.gelato-size');
-                        const priceElement = itemDiv.querySelector('.item-price');
-                        const flavor2Container = itemDiv.querySelector('#flavor2-container');
-                        const minusBtn = itemDiv.querySelector(".minus-btn");
-                        const plusBtn = itemDiv.querySelector(".plus-btn");
-                        const quantityDisplay = itemDiv.querySelector(".quantity-display");
-                        const addButton = itemDiv.querySelector(".item-add-button button");
-                        let quantity = 1;
-
-                        function updateButtonPrice() {
-                            const basePrice = parseFloat(sizeSelect.value);
-                            const totalItemPrice = basePrice * quantity;
-                            addButton.textContent = `Add RM${totalItemPrice.toFixed(2)}`;
+                    if (item.options) {
+                        const optionsKeys = Object.keys(item.options);
+                        currentPrice = item.options[optionsKeys[0]];
+                        detailsHtml += `<select class="item-options-select">`;
+                        for (const option in item.options) {
+                            detailsHtml += `<option value="${item.options[option]}">${option}</option>`;
                         }
+                        detailsHtml += `</select>`;
+                        detailsHtml += item.description ? `<p class="item-description">${item.description}</p>` : '';
+                    } else if (item.sizes) {
+                        currentPrice = item.sizes[0].price;
+                        detailsHtml += `<select class="item-sizes-select">`;
+                        item.sizes.forEach(size => {
+                            detailsHtml += `<option value="${size.price}">${size.size} - RM${size.price.toFixed(2)}</option>`;
+                        });
+                        detailsHtml += `</select>`;
+                        detailsHtml += `<div id="flavor-select-container">
+                            <label for="flavor1-${item.name.replace(/\s/g, '-')}" style="font-size: 0.9em;">Flavors:</label>
+                            <select id="flavor1-${item.name.replace(/\s/g, '-')}" class="gelato-flavor-select">
+                                ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
+                            </select>
+                        </div>`;
+                        detailsHtml += item.description ? `<p class="item-description">${item.description}</p>` : '';
+                    } else {
+                        currentPrice = item.price;
+                        detailsHtml += item.description ? `<p class="item-description">${item.description}</p>` : '';
+                    }
 
+                    itemDiv.innerHTML = `
+                        <div class="item-details">${detailsHtml}</div>
+                        <p class="item-price">RM${currentPrice.toFixed(2)}</p>
+                        <div class="item-quantity-controls">
+                            <button class="quantity-btn minus-btn">-</button>
+                            <span class="quantity-display">1</span>
+                            <button class="quantity-btn plus-btn">+</button>
+                        </div>
+                        <div class="item-add-button">
+                            <button>Add RM${currentPrice.toFixed(2)}</button>
+                        </div>
+                    `;
+
+                    const priceElement = itemDiv.querySelector('.item-price');
+                    const minusBtn = itemDiv.querySelector(".minus-btn");
+                    const plusBtn = itemDiv.querySelector(".plus-btn");
+                    const quantityDisplay = itemDiv.querySelector(".quantity-display");
+                    const addButton = itemDiv.querySelector(".item-add-button button");
+                    let quantity = 1;
+
+                    function updateButtonPrice() {
+                        const basePrice = parseFloat(priceElement.textContent.replace('RM', ''));
+                        const totalItemPrice = basePrice * quantity;
+                        addButton.textContent = `Add RM${totalItemPrice.toFixed(2)}`;
+                    }
+
+                    const sizeSelect = itemDiv.querySelector('.item-sizes-select');
+                    if (sizeSelect) {
                         sizeSelect.addEventListener('change', (event) => {
                             const selectedPrice = parseFloat(event.target.value);
                             priceElement.textContent = `RM${selectedPrice.toFixed(2)}`;
-                            if (event.target.selectedIndex === 1) {
-                                flavor2Container.style.display = 'block';
-                            } else {
-                                flavor2Container.style.display = 'none';
-                            }
-                            updateButtonPrice();
-                        });
-
-                        minusBtn.addEventListener("click", () => {
-                            if (quantity > 1) {
-                                quantity--;
-                                quantityDisplay.textContent = quantity;
-                                updateButtonPrice();
-                            }
-                        });
-
-                        plusBtn.addEventListener("click", () => {
-                            quantity++;
-                            quantityDisplay.textContent = quantity;
-                            updateButtonPrice();
-                        });
-
-                        addButton.addEventListener("click", () => {
-                            const flavor1Select = itemDiv.querySelector("#flavor1-Gelato");
-                            const basePrice = parseFloat(sizeSelect.value);
-                            const sizeName = sizeSelect.options[sizeSelect.selectedIndex].text.split(' - ')[0];
-                            const flavor1 = flavor1Select.value;
-                            let itemName = `${item.name} (${sizeName}, ${flavor1})`;
-
-                            if (sizeName === "Double Scoop") {
-                                const flavor2Select = itemDiv.querySelector("#flavor2-Gelato");
-                                const flavor2 = flavor2Select.value;
-                                itemName = `${item.name} (${sizeName}, ${flavor1} & ${flavor2})`;
-                            }
-
-                            addToOrder({ name: itemName, price: basePrice }, quantity);
-                            // Reset quantity to 1 after adding to order
-                            quantity = 1;
-                            quantityDisplay.textContent = quantity;
-                            updateButtonPrice();
-                        });
-                    } else {
-                        itemDiv.className = "menu-item";
-                        itemDiv.innerHTML = `
-                            <div class="item-details">
-                                <h3>${item.name}</h3>
-                                ${item.description ? `<p class="item-description">${item.description}</p>` : ''}
-                            </div>
-                            <p class="item-price">RM${item.price.toFixed(2)}</p>
-                            <div class="item-quantity-controls">
-                                <button class="quantity-btn minus-btn">-</button>
-                                <span class="quantity-display">1</span>
-                                <button class="quantity-btn plus-btn">+</button>
-                            </div>
-                            <div class="item-add-button">
-                                <button>Add RM${item.price.toFixed(2)}</button>
-                            </div>
-                        `;
-                        const minusBtn = itemDiv.querySelector(".minus-btn");
-                        const plusBtn = itemDiv.querySelector(".plus-btn");
-                        const quantityDisplay = itemDiv.querySelector(".quantity-display");
-                        const addButton = itemDiv.querySelector(".item-add-button button");
-                        let quantity = 1;
-
-                        function updateButtonPrice() {
-                            const totalItemPrice = item.price * quantity;
-                            addButton.textContent = `Add RM${totalItemPrice.toFixed(2)}`;
-                        }
-
-                        minusBtn.addEventListener("click", () => {
-                            if (quantity > 1) {
-                                quantity--;
-                                quantityDisplay.textContent = quantity;
-                                updateButtonPrice();
-                            }
-                        });
-
-                        plusBtn.addEventListener("click", () => {
-                            quantity++;
-                            quantityDisplay.textContent = quantity;
-                            updateButtonPrice();
-                        });
-
-                        addButton.addEventListener("click", () => {
-                            addToOrder(item, quantity);
-                            // Reset quantity to 1 after adding to order
-                            quantity = 1;
-                            quantityDisplay.textContent = quantity;
                             updateButtonPrice();
                         });
                     }
+
+                    const optionSelect = itemDiv.querySelector('.item-options-select');
+                    if(optionSelect) {
+                        optionSelect.addEventListener('change', (event) => {
+                            const selectedPrice = parseFloat(event.target.value);
+                            priceElement.textContent = `RM${selectedPrice.toFixed(2)}`;
+                            updateButtonPrice();
+                        });
+                    }
+
+                    minusBtn.addEventListener("click", () => {
+                        if (quantity > 1) {
+                            quantity--;
+                            quantityDisplay.textContent = quantity;
+                            updateButtonPrice();
+                        }
+                    });
+
+                    plusBtn.addEventListener("click", () => {
+                        quantity++;
+                        quantityDisplay.textContent = quantity;
+                        updateButtonPrice();
+                    });
+                    
+                    addButton.addEventListener("click", () => {
+                        let basePrice = parseFloat(priceElement.textContent.replace('RM', ''));
+                        let itemName = item.name;
+
+                        if (item.options) {
+                            const selectedOption = itemDiv.querySelector('.item-options-select').options[itemDiv.querySelector('.item-options-select').selectedIndex].text;
+                            itemName = `${item.name} (${selectedOption})`;
+                        } else if (item.sizes) {
+                            const selectedSize = itemDiv.querySelector('.item-sizes-select').options[itemDiv.querySelector('.item-sizes-select').selectedIndex].text;
+                            const selectedFlavor = itemDiv.querySelector('.gelato-flavor-select').options[itemDiv.querySelector('.gelato-flavor-select').selectedIndex].text;
+                            itemName = `${item.name} (${selectedSize}, ${selectedFlavor})`;
+                        }
+                        
+                        addToOrder({ name: itemName, price: basePrice, quantity: quantity });
+                        
+                        // Reset quantity to 1 after adding to order
+                        quantity = 1;
+                        quantityDisplay.textContent = quantity;
+                        updateButtonPrice();
+                    });
+
                     itemsContainer.appendChild(itemDiv);
                 });
                 menuDiv.appendChild(categoryDiv);

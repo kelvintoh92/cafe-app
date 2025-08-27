@@ -1,813 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Popup Cafe - Order your favorite drinks and pastries.">
-    <meta name="keywords" content="cafe, popup, coffee, pastries, order">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <title>Popup Cafe</title>
-
-    <style>
-        :root {
-            --primary-color: #007bff;
-            --primary-color-dark: #0056b3;
-            --danger-color: #dc3545;
-            --danger-color-dark: #b52a36;
-            --success-color: #28a745;
-            --success-color-dark: #218838;
-            --text-color: #333;
-            --bg-color: #f2f2f2;
-            --white-color: #fff;
-            --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            --border-radius: 5px;
-            --font-family: Helvetica, Arial, sans-serif; 
-        }
-
-        body {
-            font-family: var(--font-family);
-            margin: 0;
-            padding: 20px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex; /* Added for centering */
-            flex-direction: column; /* Added for centering */
-            align-items: center; /* Added for centering */
-        }
-
-        h1, h2 {
-            text-align: center;
-        }
-#top-banner {
-    background-color: var(--bg-color);
-    text-align: center;
-    padding: 0;
-    width: 100%;
-    box-sizing: border-box;
-    display: block; /* Change to block */
-    overflow: hidden;
-    height: 150px; /* Set a desired height for the banner */
-}
-
-#top-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This is the key property */
-    display: block;
-}
-      
-#top-banner p {
-    margin: 0;
-}
-
-/* Style for the close button (if you have one) */
-#top-banner .close-button {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    color: var(--white-color);
-    font-size: 1.2em;
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
-}
-        #customer-section {
-            max-width: 500px;
-            margin: 0 auto 20px;
-            display: flex;
-            flex-direction: column; /* Changed to column for better mobile layout */
-            gap: 10px;
-            align-items: center;
-        }
-
-        #customer-section label {
-            margin-right: 0; /* Removed right margin for column layout */
-            margin-bottom: 5px; /* Added bottom margin for label spacing */
-            font-weight: bold;
-            text-align: left; /* Added left alignment for labels */
-            width: 100%; /* Make labels full width */
-        }
-
-        #customer-section input {
-            flex: 1;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: var(--border-radius);
-            width: 100%;
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
-        }
-      #customer-section label[for="table-number"] {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    text-align: left;
-    width: 100%;
-}
-
-#customer-section input#table-number {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    box-sizing: border-box;
-}
-      
-        .notification-email {
-            display: block; /* To put it on a new line */
-            font-size: 0.8em;
-            color: #777;
-            margin-top: 5px;
-        }
-        #toggle-menu {
-            display: block;
-            margin: 10px auto 30px;
-            padding: 10px 15px;
-            font-size: 16px;
-            border: none;
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: fit-content; /* Adjust width to content */
-        }
-
-        #toggle-menu:hover {
-            background-color: var(--primary-color-dark);
-        }
-
-        #menu {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Center categories horizontally */
-            margin-bottom: 30px;
-            width: 100%; /* Make menu full width */
-        }
-
-        .menu-category {
-            width: 100%; /* Make categories full width */
-            max-width: 600px; /* Limit the width of the categories */
-            margin-bottom: 20px; /* Add space between categories */
-            padding: 15px;
-            background: var(--white-color);
-            border-radius: 10px;
-            box-shadow: var(--box-shadow);
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
-        }
-
-        #menu h2 {
-            text-align: center; /* Center category headings */
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
-        .menu-items {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Increased gap between items */
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .menu-item {
-            background: var(--white-color);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            border: 1px solid #eee;
-            box-sizing: border-box;
-            display: grid; /* Use grid for better control */
-            grid-template-columns: 1fr auto auto auto; /* Name/Desc | Price | Quantity | Button */
-            align-items: center;
-            gap: 10px;
-        }
-
-        .item-details {
-            grid-column: 1 / 2; /* Spans the first column */
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-      
-      .item-details .item-description {
-    color: #777;
-    font-size: 0.9em;
-    line-height: 1.3;
-    margin-top: 5px;
-}
-
-        .item-details h3 {
-            margin: 0;
-            color: var(--text-color);
-            font-size: 1em;
-            text-align: left;
-        }
-
-        .item-details p {
-            margin: 0;
-            font-weight: normal;
-            color: #777;
-            font-size: 0.85em;
-            line-height: 1.4;
-        }
-
-        .item-price {
-            grid-column: 2 / 3;
-            text-align: right;
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1em;
-        }
-
-        .item-quantity-controls {
-            grid-column: 3 / 4;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            justify-self: end; /* Align to the end of its column */
-        }
-
-        .item-quantity-controls label {
-            font-weight: bold;
-            font-size: 0.8em;
-        }
-
-        .item-quantity-controls input {
-            width: 40px;
-            padding: 6px;
-            border: 1px solid #ccc;
-            border-radius: var(--border-radius);
-            text-align: center;
-            box-sizing: border-box;
-            font-size: 0.9em;
-        }
-
-        .item-add-button {
-            grid-column: 4 / 5;
-            justify-self: end; /* Align to the end of its column */
-        }
-
-        .item-add-button button {
-            padding: 8px 12px;
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background-color 0.3s ease;
-        }
-
-        .item-add-button button:hover {
-            background-color: var(--primary-color-dark);
-        }
-
-        #order-summary {
-            background-color: var(--white-color);
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: var(--box-shadow);
-            width: 100%; /* Make order summary full width */
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
-        }
-
-        #order-summary h3 {
-            margin-top: 0;
-            color: var(--text-color);
-        }
-
-        #order-summary ul {
-            list-style: none;
-            padding-left: 0;
-            margin-bottom: 15px;
-        }
-
-        #order-summary li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .btn {
-            padding: 10px;
-            width: 100%;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background-color 0.3s ease;
-            color: var(--white-color);
-            box-sizing: border-box; /* Ensure padding doesn't affect width */
-        }
-
-        #clear-btn {
-            background-color: var(--danger-color);
-        }
-
-        #clear-btn:hover {
-            background-color: var(--danger-color-dark);
-        }
-
-        #submit-btn {
-            background-color: var(--success-color);
-        }
-
-        #submit-btn:hover {
-            background-color: var(--success-color-dark);
-        }
-
-        #menu.hidden {
-            display: none;
-        }
-.order-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.order-details {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Space between price and button */
-}
-
-.remove-item-button {
-  background-color: transparent; /* No background for a clean look */
-  color: #ff4d4d; /* Soft red for a modern aesthetic */
-  border: 1px solid #ff4d4d; /* Adds a subtle border */
-  border-radius: 5px; /* Rounded edges for elegance */
-  cursor: pointer;
-  padding: 5px 8px;
-  font-size: 14px;
-  font-weight: bold;
-  transition: all 0.3s ease; /* Smooth hover effect */
-}
-
-.remove-item-button:hover {
-  background-color: #ff4d4d; /* Highlight with red when hovered */
-  color: white; /* White text for contrast */
-  border: 1px solid #ff4d4d; /* Keep the border the same */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-}
-
-        .add-confirmation {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: var(--white-color);
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            z-index: 1000;
-        }
-
-        .add-confirmation.show {
-            opacity: 1;
-        }
-
-        /* Focus styles for better keyboard navigation */
-        button:focus,
-        input:focus {
-            outline: 2px solid var(--primary-color-dark);
-            outline-offset: 2px;
-        }
-
-        /* Responsive layout */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            #menu {
-                align-items: stretch; /* Allow categories to fill width */
-            }
-
-            .menu-category {
-                max-width: 100%; /* Categories take full width */
-            }
-
-            .menu-items {
-                grid-template-columns: 1fr; /* Changed to single column for very small screens */
-            }
-
-            .menu-item {
-                padding: 10px;
-            }
-
-            .menu-item h3 {
-                font-size: 16px;
-            }
-
-            .menu-item p {
-                font-size: 14px;
-            }
-
-            .menu-item button {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-
-            #customer-section,
-            #order-summary {
-                max-width: 100%;
-            }
-
-            .btn {
-                font-size: 14px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Studio Café by DBMK × GIF</title>
+  <style>
+    :root {
+      --bg: #faf9f6;
+      --card: #fff;
+      --text: #333;
+      --accent: #c49a6c;
+      --radius: 8px;
+      --gap: 16px;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: 'Helvetica Neue', sans-serif;
+      color: var(--text);
+    }
+    header {
+      padding: var(--gap);
+      text-align: center;
+      background: var(--card);
+      box-shadow: 0 1px 4px rgba(0,0,0,.1);
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+    }
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--gap);
+      margin: var(--gap);
+    }
+    .form-row input {
+      flex: 1 1 100px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+    #menu, #order-summary {
+      max-width: 600px;
+      margin: 0 auto var(--gap);
+      padding: var(--gap);
+      background: var(--card);
+      border-radius: var(--radius);
+    }
+    .menu-item {
+      border: 1px solid #eee;
+      border-radius: var(--radius);
+      padding: var(--gap);
+      margin-bottom: var(--gap);
+      transition: box-shadow .2s;
+    }
+    .menu-item:hover {
+      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+    }
+    .menu-item h3 {
+      margin: 0 0 8px;
+      font-family: 'Playfair Display', serif;
+    }
+    .menu-item p {
+      margin: 4px 0;
+      font-size: .9rem;
+    }
+    .menu-item .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+    }
+    .menu-item .controls input,
+    .menu-item .controls select {
+      padding: 4px;
+      font-size: .9rem;
+      border: 1px solid #ccc;
+      border-radius: var(--radius);
+    }
+    .menu-item .controls button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: .9rem;
+    }
+    #order-summary ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--gap);
+    }
+    #order-summary li {
+      margin-bottom: 4px;
+      font-size: .95rem;
+    }
+    #order-summary .total {
+      font-weight: bold;
+      margin-top: var(--gap);
+    }
+    #order-summary button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      margin-right: 8px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 <body>
-<div id="top-banner">
-    <img src="https://cdn.glitch.global/f0a1af0e-37fe-4fa9-ae9c-c0115289ff91/WhatsApp%20Image%202025-04-08%20at%209.08.56%20PM.jpeg?v=1744124496966" alt="Banner Image" style="max-height: 100px; margin-right: 10px; vertical-align: middle;">
-  </div>
-  
-    <h1>Welcome to Studio Cafe by DBMK x GIF</h1>
 
-    <div id="customer-section">
-            <label for="table-number">Table Number:</label>
-    <input type="number" id="table-number" name="table-number" min="1" max="10" placeholder="Enter table number (1-10)" />  
-        <label for="customer-name">Your Name:</label>
-        <input type="text" id="customer-name" placeholder="Enter your name..." />
-        <label for="customer-email">Your Email:</label>
-        <input type="email" id="customer-email" placeholder="Enter your email..." />
-        <small class="notification-email">We'll whisk a receipt to your inbox – just pop in your email.</small>
- 
+  <header>
+    <h1>Studio Café by DBMK × GIF</h1>
+  </header>
+
+  <div class="form-row">
+    <input id="table-number" type="number" placeholder="Table # (1–10)" min="1" max="10"/>
+    <input id="customer-name" type="text" placeholder="Your Name"/>
+    <input id="customer-email" type="email" placeholder="Your Email"/>
   </div>
 
-    <button id="toggle-menu">Show Menu</button>
+  <section id="menu"></section>
 
-    <section id="menu" class="hidden" aria-hidden="true">
-    </section>
+  <section id="order-summary">
+    <h2>Order Summary</h2>
+    <ul id="order-list"></ul>
+    <div class="total">Total: RM <span id="order-total">0.00</span></div>
+    <button id="submit-order">Submit Order</button>
+    <button id="clear-order">Clear Order</button>
+  </section>
 
-    <section id="order-summary">
-        <h3>Order Summary</h3>
-        <ul id="order-list" aria-live="polite"></ul>
-        <p><strong>Total: RM<span id="total">0.00</span></strong></p>
-        <p><em>Kindly complete your payment at the counter.</em></p>
-        <button id="submit-btn" class="btn">Submit Order</button>
-        <button id="clear-btn" class="btn">Clear Order</button>
-    </section>
+  <script>
+    // 1. Your menu data, including a single "Gelato" item with variations/flavors
+    const menu = [
+      // Drinks, Sandwiches, Bites, Desserts (unchanged from your original)
+      { name: "Black (Hot)", price: 10, category: "Drinks", description: "Bold and robust black coffee, served hot." },
+      { name: "Black (Iced)", price: 11, category: "Drinks", description: "Refreshing black coffee, chilled." },
+      { name: "White (Hot)", price: 12, category: "Drinks", description: "Smooth coffee with milk, served hot." },
+      { name: "White (Iced)", price: 13, category: "Drinks", description: "Chilled coffee with milk." },
+      { name: "Matcha Latte (Hot)", price: 13, category: "Drinks", description: "Finely ground matcha whisked with warm milk." },
+      { name: "Matcha Latte (Iced)", price: 14, category: "Drinks", description: "Iced matcha latte, vibrant and refreshing." },
 
-    <div id="add-confirmation" class="add-confirmation">Item added!</div>
+      { name: "PB & J Sandwich", price: 9, category: "Open Sandwiches", description: "Peanut butter & raspberry jam on a toasted bun." },
+      { name: "Crispy Egg Mayo", price: 10, category: "Open Sandwiches", description: "Creamy egg mayo on a toasted muffin." },
+      { name: "Creamy Mushroom", price: 12, category: "Open Sandwiches", description: "Sautéed mushrooms in cream sauce on muffin." },
 
-   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+      { name: "Curly Fries + Cheese", price: 16, category: "Small Bites", description: "Seasoned fries with cheese sauce." },
+      { name: "Curly Fries + Mentaiko", price: 18, category: "Small Bites", description: "Seasoned fries with mentaiko mayo." },
 
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "pop-up-cafe-v2.firebaseapp.com",
-        projectId: "pop-up-cafe-v2",
-        storageBucket: "pop-up-cafe-v2.firebasestorage.app",
-        messagingSenderId: "676149927239",
-        appId: "1:676149927239:web:648247bb5c150c9f02c062"
-    };
+      { name: "Affogato (PB&J)", price: 18, category: "Desserts", description: "PB&J gelato drowned in hot espresso." },
+      { name: "Affogato (Dark Choc)", price: 18, category: "Desserts", description: "Dark choc gelato drowned in hot espresso." },
+      { name: "Mont Ember", price: 23, category: "Desserts", description: "Classic affogato with French canelé." },
+      { name: "French Toast + Gelato", price: 20, category: "Desserts", description: "Rich french toast with dark choc gelato." },
+      { name: "Canelé", price: 8, category: "Desserts", description: "Caramelized crust, custard center pastry." },
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);  // Initialize Firestore
-
-  const menu = [
-  {
-    name: "Gelato",
-    category: "Gelato",
-    variations: [
-      { label: "Single", price: 5, maxFlavors: 1 },
-      { label: "Double", price: 9, maxFlavors: 2 },
-      { label: "Affogato", price: 7, maxFlavors: 1 }
-    ],
-    // flavour choices customers can pick from
-    flavors: [
-      "Dark Choc Sea Salt",
-      "Roasted Hojicha",
-      "Matcha",
-      "Hazelnut Orange"
-    ]
-  },
-  // …other items without variations stay unchanged
-];
-    // DOM elements
-    const menuDiv = document.getElementById("menu");
-    const orderList = document.getElementById("order-list");
-    const totalSpan = document.getElementById("total");
-    const clearBtn = document.getElementById("clear-btn");
-    const submitBtn = document.getElementById("submit-btn");
-    const customerNameInput = document.getElementById("customer-name");
-    const customerEmailInput = document.getElementById("customer-email");
-    const toggleBtn = document.getElementById("toggle-menu");
-    const addConfirmationDiv = document.getElementById("add-confirmation");
-     const tableNumberInput = document.getElementById('table-number');
-const enteredTableNumber = tableNumberInput.value;
+      // Single Gelato entry with 1–3 scoop variations
+      {
+        name: "Gelato",
+        category: "Gelato",
+        description: "Choose your scoop count and flavor(s).",
+        variations: [
+          { label: "1 Scoop", price: 10, maxFlavors: 1 },
+          { label: "2 Scoops", price: 18, maxFlavors: 2 },
+          { label: "3 Scoops", price: 25, maxFlavors: 3 }
+        ],
+        flavors: [
+          "Roasted Soybean", "Black Sesame",
+          "Lime Basil", "PB&J",
+          "Dark Chocolate Sea Salt",
+          "Hazelnut Orange"
+        ]
+      }
+    ];
 
     let order = [];
-    let menuVisible = false;
 
-    /**
-     * Validates the customer name input.
-     * @returns {boolean} - True if the input is valid, false otherwise.
-     */
-    function validateCustomerDetails() {
-    const customerName = customerNameInput.value.trim();
-    const customerEmail = customerEmailInput.value.trim();
+    // 2. Build the menu UI
+    function populateMenu() {
+      const container = document.getElementById("menu");
+      container.innerHTML = "";
+      menu.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "menu-item";
+        card.innerHTML = `
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+        `;
 
-    if (!customerName) {
-        alert("Please enter your name before placing an order.");
-        return false;
-    }
-
-    if (!customerEmail || !validateEmail(customerEmail)) {
-        alert("Please enter a valid email address.");
-        return false;
-    }
-
-    return true;
-}
-
-/**
- * Validates the email address format using a regular expression.
- * @param {string} email - The email address to validate.
- * @returns {boolean} - True if the email is valid, false otherwise.
- */
-function validateEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-}
-
-    /**
-     * Updates the order display with the current items and total.
-     */
-    function updateOrderDisplay() {
-  orderList.innerHTML = ""; // Clear existing items
-  let total = 0;
-
-  order.forEach((item) => {
-    // Create order item container
-    const li = document.createElement("li");
-    li.className = "order-item";
-
-    // Set item details with price and remove button
-    li.innerHTML = `
-      <span>${item.name} x ${item.quantity}</span>
-      <span class="order-details">
-        RM${(item.price * item.quantity).toFixed(2)}
-        <button class="remove-item-button">X</button>
-      </span>
-    `;
-
-    // Attach click event to the "cross" button
-    const removeButton = li.querySelector(".remove-item-button");
-    removeButton.addEventListener("click", () => {
-      order = order.filter(orderItem => orderItem.name !== item.name); // Remove item from order
-      
-      updateOrderDisplay(); // Update order display
-    });
-
-    orderList.appendChild(li); // Add item to the list
-    total += item.price * item.quantity; // Update total
-  });
-
-  totalSpan.textContent = total.toFixed(2); // Display total amount
-}
-
-    /**
-     * Adds an item to the order and updates the display.
-     * Updates quantity if the item already exists.
-     * @param {object} item - The item to add to the order.
-     * @param {number} quantity - The quantity of the item to add.
-     */
-   unction addToOrder(itemEl, itemData) {
-  const variation = JSON.parse(itemEl.querySelector(".variation-select").value);
-  const flavorSelects = [...itemEl.querySelectorAll(".flavor-container select")]
-    .map(s => s.value);
-  const qty = Number(itemEl.querySelector(".qty-input").value);
-  
-  order.push({
-    name: itemData.name,
-    variation: variation.label,
-    price: variation.price,
-    flavors: flavorSelects,
-    qty
-  });
-  renderOrderSummary();
-}
-
-        const quantityValue = parseInt(quantity, 10);
-        if (isNaN(quantityValue) || quantityValue <= 0) {
-            alert("Please enter a valid quantity.");
-            return;
+        // If item has variations (only Gelato here), show size selector
+        let varSelect = null;
+        if (item.variations) {
+          varSelect = document.createElement("select");
+          varSelect.className = "variation-select";
+          item.variations.forEach(v => {
+            const opt = document.createElement("option");
+            opt.value = JSON.stringify(v);
+            opt.textContent = `${v.label} — RM ${v.price.toFixed(2)}`;
+            varSelect.append(opt);
+          });
+          card.append(varSelect);
         }
 
-        const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
+        // Flavor selects if more than 1 flavor allowed
+        const flavourContainer = document.createElement("div");
+        flavourContainer.className = "flavor-container";
+        card.append(flavourContainer);
 
-        if (existingItemIndex > -1) {
-            order[existingItemIndex].quantity += quantityValue;
-        } else {
-            order.push({ ...item, quantity: quantityValue });
+        if (varSelect) {
+          varSelect.addEventListener("change", () => {
+            // clear old flavor inputs
+            flavourContainer.innerHTML = "";
+            const v = JSON.parse(varSelect.value);
+            for (let i = 0; i < v.maxFlavors; i++) {
+              const fsel = document.createElement("select");
+              item.flavors.forEach(fl => {
+                const fo = document.createElement("option");
+                fo.value = fl;
+                fo.textContent = fl;
+                fsel.append(fo);
+              });
+              flavourContainer.append(fsel);
+            }
+          });
+          // trigger initial flavor for 1 Scoop
+          varSelect.dispatchEvent(new Event("change"));
         }
 
-        updateOrderDisplay();
-        showConfirmation("Item added!");
+        // Quantity input & Add button
+        const controls = document.createElement("div");
+        controls.className = "controls";
+        controls.innerHTML = `
+          <input type="number" class="qty-input" value="1" min="1" style="width:50px;"/>
+          <button>Add</button>
+        `;
+        controls.querySelector("button").addEventListener("click", () => {
+          addToOrder(item, varSelect, flavourContainer);
+        });
+        card.append(controls);
+
+        container.append(card);
+      });
     }
 
-    /**
-     * Displays a temporary confirmation message.
-     * @param {string} message - The message to display.
-     */
-    function showConfirmation(message) {
-        addConfirmationDiv.textContent = message;
-        addConfirmationDiv.classList.add("show");
-        setTimeout(() => {
-            addConfirmationDiv.classList.remove("show");
-        }, 1500); // Duration of the message
+    // 3. Add to order
+    function addToOrder(item, varSelect, flavourContainer) {
+      let selectedVar = { label: "", price: item.price, maxFlavors: 1 };
+      if (varSelect) {
+        selectedVar = JSON.parse(varSelect.value);
+      }
+      const qty = parseInt(flavourContainer.parentNode.querySelector(".qty-input").value, 10) || 1;
+      // gather chosen flavors
+      const chosenFlavors = [...flavourContainer.querySelectorAll("select")].map(s => s.value);
+
+      order.push({
+        name: item.name,
+        variation: selectedVar.label,
+        price: selectedVar.price,
+        flavors: chosenFlavors,
+        qty
+      });
+      renderOrderSummary();
     }
 
-     /**
-     * Clears the current order and updates the display,
-     * but keeps the customer's name and email.
-     */
-    function clearOrder() {
-        order = [];
-        updateOrderDisplay();
-        // Do NOT clear customerNameInput.value or customerEmailInput.value
-   showConfirmation("Items cleared!"); // Show the confirmation message
-    }
-   /**
-     * Submits the order to Firestore and sends a receipt via EmailJS.
-     */
-    async function submitOrder() {
-        if (!validateCustomerDetails()) {
-            return;
-        }
-
-        const customerName = customerNameInput.value.trim();
-        const customerEmail = customerEmailInput.value.trim();
-        const tableNumberInput = document.getElementById('table-number');
-        const tableNumber = tableNumberInput.value.trim(); // Get the table number
-
-        if (!customerEmail) {
-            alert("Please enter your email.");
-            return;
-        }
-
-        if (order.length === 0) {
-            alert("Your order is empty.");
-            return;
-        }
-
-        const orderData = {
-            customerName,
-            customerEmail,
-            tableNumber: tableNumber || null, // Add the table number to the order data
-            items: order.map(item => ({
-                name: item.name,
-                quantity: item.quantity,
-                price: item.price
-            })),
-            total: parseFloat(totalSpan.textContent),
-            timestamp: new Date()
-        };
-
-        try {
-            const docRef = await addDoc(collection(db, "orders"), orderData);
-            alert(`Order submitted! Document ID: ${docRef.id}`);
-
-            // Prepare data for EmailJS
-            const emailParams = {
-                to_name: customerName,
-                to_email: customerEmail,
-                order_id: docRef.id,
-                table_number: tableNumber || 'Not specified', // Include table number in email
-                message: order.map(item =>
-                    `${item.name} x ${item.quantity} - RM${(item.price * item.quantity).toFixed(2)}`
-                ).join("\n"),
-                total: `RM${orderData.total.toFixed(2)}`
-            };
-
-            await emailjs.send("service_GIFgelateria", "template_ti1rkn9", emailParams);
-
-            alert("Receipt sent to your email!");
-            clearOrder();
-
-        } catch (error) {
-            console.error("Error submitting order or sending email:", error);
-            alert("There was an error submitting your order or sending the receipt.");
-        }
+    // 4. Render summary
+    function renderOrderSummary() {
+      const list = document.getElementById("order-list");
+      const totalEl = document.getElementById("order-total");
+      list.innerHTML = "";
+      let total = 0;
+      order.forEach((o,i) => {
+        total += o.price * o.qty;
+        const li = document.createElement("li");
+        li.textContent = `${o.name} (${o.variation}${o.flavors.length ? ": " + o.flavors.join(", ") : ""}) × ${o.qty} — RM ${(o.price*o.qty).toFixed(2)}`;
+        list.append(li);
+      });
+      totalEl.textContent = total.toFixed(2);
     }
 
-    /**
-     * Toggles the visibility of the menu.
-     */
-    function toggleMenu() {
-        menuVisible = !menuVisible;
-        menuDiv.classList.toggle("hidden", !menuVisible);
-        toggleBtn.textContent = menuVisible ? "Hide Menu" : "Show Menu";
-        menuDiv.setAttribute('aria-hidden', !menuVisible);
-    }
+    // 5. Hook up Clear & Submit
+    document.getElementById("clear-order").onclick = () => {
+      order = [];
+      renderOrderSummary();
+    };
+    document.getElementById("submit-order").onclick = () => {
+      alert("Order submitted!\nCheck console for data.");
+      console.log({
+        table: document.getElementById("table-number").value,
+        name: document.getElementById("customer-name").value,
+        email: document.getElementById("customer-email").value,
+        order
+      });
+      // TODO: send `order` to Firestore or EmailJS here
+    };
 
-    // Event listeners
-    toggleBtn.addEventListener("click", toggleMenu);
-    clearBtn.addEventListener("click", clearOrder);
-    submitBtn.addEventListener("click", submitOrder);
+    // initialize
+    populateMenu();
+    renderOrderSummary();
+  </script>
 
-    /**
-     * Populates the menu with items.
-     */
- function createVariationSelect(item) {
-  const sel = document.createElement("select");
-  sel.className = "variation-select";
-  item.variations.forEach(v => {
-    const opt = document.createElement("option");
-    opt.value = JSON.stringify(v); 
-    opt.textContent = `${v.label} — RM ${v.price}`;
-    sel.append(opt);
-  });
-  return sel;
-}
+</body>
+</html>
 
-       function createFlavorInputs(item, variation) {
-  const container = document.createElement("div");
-  container.className = "flavor-container";
-  for (let i = 0; i < variation.maxFlavors; i++) {
-    const sel = document.createElement("select");
-    sel.innerHTML = item.flavors
-      .map(f => `<option value="${f}">${f}</option>`)
-      .join("");
-    container.append(sel);
-  }
-  return container;
-}
-
-// listen for variation change:
-varSelect.addEventListener("change", e => {
-  // remove old flavor container if exists
-  menuItem.querySelector(".flavor-container")?.remove();
-  const v = JSON.parse(e.target.value);
-  if (v.maxFlavors > 1) {
-    menuItem.append(createFlavorInputs(item, v));
-  }
-});
-
-// in populateMenu()
-if (item.variations) {
-  const varSelect = createVariationSelect(item);
-  menuItem.append(varSelect);
-  menuItem.append(document.createElement("br"));
-}
-
-    categories.forEach(category => {
-        const categoryItems = menu.filter(item => item.category === category.name);
-        if (categoryItems.length > 0) {
-            const categoryDiv = document.createElement("div");
-            categoryDiv.id = category.id;
-            categoryDiv.className = "menu-category";
-            categoryDiv.innerHTML = `<h2>${category.name}</h2><div class="menu-items" id="${category.name.toLowerCase().replace(/ /g, '-')}-menu"></div>`;
-            menuSection.appendChild(categoryDiv);
-
-            const itemsContainer = categoryDiv.querySelector('.menu-items');
-            categoryItems.forEach(item => {
-                const div = document.createElement("div");
-                div.className = "menu-item";
-                div.innerHTML = `
-                    <div class="item-details">
-                        <h3>${item.name}</h3>
-                        ${item.description ? `<p class="item-description">${item.description}</p>` : ''}
-                    </div>
-                    <p class="item-price">RM${item.price.toFixed(2)}</p>
-                    <div class="item-quantity-controls">
-                        <label for="quantity-${item.name.replace(/[^a-zA-Z0-9]/g, '')}">Qty:</label>
-                        <input type="number" id="quantity-${item.name.replace(/[^a-zA-Z0-9]/g, '')}" name="quantity-${item.name.replace(/[^a-zA-Z0-9]/g, '')}" value="1" min="1">
-                    </div>
-                    <div class="item-add-button">
-                        <button>Add</button>
-                    </div>
-                `;
-
-                const button = div.querySelector(".item-add-button button");
-                const quantityInput = div.querySelector(`.item-quantity-controls input[name="quantity-${item.name.replace(/[^a-zA-Z0-9]/g, '')}"]`);
-
-                button.addEventListener("click", () => {
-                    addToOrder(item, quantityInput.value);
-                });
-
-                itemsContainer.appendChild(div);
-            });
-        }
-    });
-}
-
-// Initialize the menu
-populateMenu();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>

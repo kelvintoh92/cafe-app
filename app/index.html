@@ -171,7 +171,7 @@
             color: var(--primary-color);
             font-size: 1em;
         }
-        
+
         .item-add-button {
             grid-column: 4 / 5;
             justify-self: end;
@@ -209,7 +209,7 @@
             box-sizing: border-box;
             font-size: 0.9em;
         }
-        
+
         #order-summary {
             background-color: var(--white-color);
             max-width: 500px;
@@ -321,7 +321,7 @@
             outline-offset: 2px;
         }
 
-        .gelato-size, .gelato-topping {
+        .gelato-size {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: var(--border-radius);
@@ -329,7 +329,7 @@
             width: 100%;
             margin: 5px 0;
         }
-        
+
         .menu-item.gelato-item {
             display: flex;
             flex-direction: column;
@@ -337,7 +337,7 @@
             gap: 10px;
             text-align: center;
         }
-        
+
         .gelato-item .item-details {
             width: 100%;
             align-items: center;
@@ -467,11 +467,6 @@
                 flavors: [
                     { size: "Single Scoop", price: 10.0 },
                     { size: "Double Scoop", price: 18.0 }
-                ],
-                toppings: [
-                    { name: "No Topping", price: 0.0 },
-                    { name: "Waffle Crumbs", price: 3.0 },
-                    { name: "Mochi", price: 3.0 }
                 ],
                 description: "Nutty and subtly sweet roasted soybean flavored gelato."
             },
@@ -635,12 +630,6 @@
                                     ${item.flavors.map(flavor => `<option value="${flavor.price}">${flavor.size} - RM${flavor.price.toFixed(2)}</option>`).join('')}
                                 </select>
                             </div>
-                            <div>
-                                <label for="topping-${item.name.replace(/\s/g, '-')}">Topping:</label>
-                                <select id="topping-${item.name.replace(/\s/g, '-')}" class="gelato-topping">
-                                    ${item.toppings.map(topping => `<option value="${topping.price}">${topping.name} - RM${topping.price.toFixed(2)}</option>`).join('')}
-                                </select>
-                            </div>
                             <div class="item-quantity-controls">
                                 <label for="qty-${item.name.replace(/\s/g, '')}">Qty:</label>
                                 <input type="number" id="qty-${item.name.replace(/\s/g, '')}" value="1" min="1">
@@ -652,11 +641,8 @@
                         itemDiv.querySelector("button").addEventListener("click", () => {
                             const quantity = itemDiv.querySelector("input").value;
                             const sizeSelect = itemDiv.querySelector(".gelato-size");
-                            const toppingSelect = itemDiv.querySelector(".gelato-topping");
-                            const basePrice = parseFloat(sizeSelect.value);
-                            const toppingPrice = parseFloat(toppingSelect.value);
-                            const newPrice = basePrice + toppingPrice;
-                            const itemName = `${item.name} (${sizeSelect.options[sizeSelect.selectedIndex].text.split(' - ')[0]}, ${toppingSelect.options[toppingSelect.selectedIndex].text.split(' - ')[0]})`;
+                            const newPrice = parseFloat(sizeSelect.value);
+                            const itemName = `${item.name} (${sizeSelect.options[sizeSelect.selectedIndex].text.split(' - ')[0]})`;
                             addToOrder({ name: itemName, price: newPrice }, quantity);
                         });
                     } else {

@@ -21,7 +21,7 @@
             --white-color: #fff;
             --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             --border-radius: 5px;
-            --font-family: Helvetica, Arial, sans-serif; 
+            --font-family: Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -38,39 +38,24 @@
         h1, h2 {
             text-align: center;
         }
-#top-banner {
-    background-color: var(--bg-color);
-    text-align: center;
-    padding: 0;
-    width: 100%;
-    box-sizing: border-box;
-    display: block;
-    overflow: hidden;
-    height: 150px;
-}
 
-#top-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-      
-#top-banner p {
-    margin: 0;
-}
+        #top-banner {
+            background-color: var(--bg-color);
+            text-align: center;
+            padding: 0;
+            width: 100%;
+            height: 150px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
 
-#top-banner .close-button {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    color: var(--white-color);
-    font-size: 1.2em;
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
-}
+        #top-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         #customer-section {
             max-width: 500px;
             margin: 0 auto 20px;
@@ -82,15 +67,12 @@
         }
 
         #customer-section label {
-            margin-right: 0;
-            margin-bottom: 5px;
             font-weight: bold;
             text-align: left;
             width: 100%;
         }
 
         #customer-section input {
-            flex: 1;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
@@ -98,29 +80,14 @@
             width: 100%;
             box-sizing: border-box;
         }
-      #customer-section label[for="table-number"] {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: bold;
-    text-align: left;
-    width: 100%;
-}
 
-#customer-section input#table-number {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    box-sizing: border-box;
-}
-      
         .notification-email {
             display: block;
             font-size: 0.8em;
             color: #777;
             margin-top: 5px;
         }
+
         #toggle-menu {
             display: block;
             margin: 10px auto 30px;
@@ -158,18 +125,10 @@
             box-sizing: border-box;
         }
 
-        #menu h2 {
-            text-align: center;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
         .menu-items {
             display: flex;
             flex-direction: column;
             gap: 15px;
-            width: 100%;
-            box-sizing: border-box;
         }
 
         .menu-item {
@@ -183,14 +142,14 @@
             align-items: center;
             gap: 10px;
         }
-
+        
         .item-details {
             grid-column: 1 / 2;
             display: flex;
             flex-direction: column;
             gap: 5px;
         }
-      
+
         .item-details .item-description {
             color: #777;
             font-size: 0.9em;
@@ -203,14 +162,6 @@
             color: var(--text-color);
             font-size: 1em;
             text-align: left;
-        }
-
-        .item-details p {
-            margin: 0;
-            font-weight: normal;
-            color: #777;
-            font-size: 0.85em;
-            line-height: 1.4;
         }
 
         .item-price {
@@ -228,7 +179,7 @@
             gap: 5px;
             justify-self: end;
         }
-      
+
         .quantity-btn {
             background-color: #eee;
             border: 1px solid #ccc;
@@ -297,6 +248,38 @@
             margin-bottom: 15px;
         }
 
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .remove-item-button {
+            background-color: transparent;
+            color: #ff4d4d;
+            border: 1px solid #ff4d4d;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 8px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item-button:hover {
+            background-color: #ff4d4d;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
         .btn {
             padding: 10px;
             width: 100%;
@@ -329,38 +312,6 @@
         #menu.hidden {
             display: none;
         }
-.order-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.order-details {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.remove-item-button {
-  background-color: transparent;
-  color: #ff4d4d;
-  border: 1px solid #ff4d4d;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 5px 8px;
-  font-size: 14px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-.remove-item-button:hover {
-  background-color: #ff4d4d;
-  color: white;
-  border: 1px solid #ff4d4d;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
 
         .add-confirmation {
             position: fixed;
@@ -385,7 +336,24 @@
             outline: 2px solid var(--primary-color-dark);
             outline-offset: 2px;
         }
+        
+        /* Specific styles for Gelato item */
+        .gelato-options {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
+        }
 
+        .gelato-options select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius);
+            font-size: 0.9em;
+        }
+
+        /* Responsive layout */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -399,60 +367,59 @@
                 max-width: 100%;
             }
 
-            .menu-items {
-                grid-template-columns: 1fr;
-            }
-
             .menu-item {
+                grid-template-columns: 1fr;
+                gap: 10px;
                 padding: 10px;
             }
 
-            .menu-item h3 {
+            .item-details, .item-price, .item-quantity-controls, .item-add-button {
+                grid-column: auto;
+            }
+
+            .item-price, .item-quantity-controls, .item-add-button {
+                justify-self: start;
+            }
+
+            .item-details h3 {
                 font-size: 16px;
             }
 
-            .menu-item p {
+            .item-details .item-description {
                 font-size: 14px;
             }
 
-            .item-add-button button {
-                font-size: 12px;
-                padding: 6px 12px;
+            .btn, #toggle-menu {
+                font-size: 14px;
             }
 
             #customer-section,
             #order-summary {
                 max-width: 100%;
             }
-
-            .btn {
-                font-size: 14px;
-            }
         }
     </style>
 </head>
 <body>
-<div id="top-banner">
-    <img src="https://cdn.glitch.global/f0a1af0e-37fe-4fa9-ae9c-c0115289ff91/WhatsApp%20Image%202025-04-08%20at%209.08.56%20PM.jpeg?v=1744124496966" alt="Banner Image" style="max-height: 100px; margin-right: 10px; vertical-align: middle;">
-  </div>
-  
+    <div id="top-banner">
+        <img src="https://cdn.glitch.global/f0a1af0e-37fe-4fa9-ae9c-c0115289ff91/WhatsApp%20Image%202025-04-08%20at%209.08.56%20PM.jpeg?v=1744124496966" alt="Banner Image">
+    </div>
+
     <h1>Welcome to Studio Cafe by DBMK x GIF</h1>
-    
+
     <div id="customer-section">
-            <label for="table-number">Table Number:</label>
-    <input type="number" id="table-number" name="table-number" min="1" max="10" placeholder="Enter table number (1-10)" />  
+        <label for="table-number">Table Number:</label>
+        <input type="number" id="table-number" name="table-number" min="1" max="10" placeholder="Enter table number (1-10)" />
         <label for="customer-name">Your Name:</label>
         <input type="text" id="customer-name" placeholder="Enter your name..." />
         <label for="customer-email">Your Email:</label>
         <input type="email" id="customer-email" placeholder="Enter your email..." />
         <small class="notification-email">We'll whisk a receipt to your inbox – just pop in your email.</small>
- 
-  </div>
+    </div>
 
     <button id="toggle-menu">Show Menu</button>
 
-    <section id="menu" class="hidden" aria-hidden="true">
-    </section>
+    <section id="menu" class="hidden" aria-hidden="true"></section>
 
     <section id="order-summary">
         <h3>Order Summary</h3>
@@ -465,310 +432,352 @@
 
     <div id="add-confirmation" class="add-confirmation">Item added!</div>
 
-   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "pop-up-cafe-v2.firebaseapp.com",
-        projectId: "pop-up-cafe-v2",
-        storageBucket: "pop-up-cafe-v2.firebasestorage.app",
-        messagingSenderId: "676149927239",
-        appId: "1:676149927239:web:648247bb5c150c9f02c062"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const menu = [
-        { name: "Black (Hot)", price: 10.0, category: "Drinks", description: "Bold and robust black coffee, served hot." },
-        { name: "Black (Iced)", price: 11.0, category: "Drinks", description: "Refreshing black coffee, chilled to perfection." },
-        { name: "White (Hot)", price: 12.0, category: "Drinks", description: "Smooth black coffee with a touch of milk, served hot." },
-        { name: "White (Iced)", price: 13.0, category: "Drinks", description: "Chilled black coffee with milk for a creamy delight." },
-        { name: "Matcha Latte (Hot)", price: 13.0, category: "Drinks", description: "Finely ground matcha whisked with warm milk." },
-        { name: "Matcha Latte (Iced)", price: 14.0, category: "Drinks", description: "Iced matcha latte, a vibrant and refreshing treat." },
-
-        { name: "PB & J", price: 9.0, category: "Open Sandwiches", description: "generously spread with homemade creamy peanut butter and raspberry jam. A comforting combination of flavors in every bite." },
-        { name: "Crispy Egg Mayo", price: 10.0, category: "Open Sandwiches", description: "creamy egg mayonnaise served on a perfectly toasted muffin" },
-        { name: "Creamy Mushroom", price: 12.0, category: "Open Sandwiches", description: "Sautéed mushrooms in a rich cream sauce, served on muffin." },
-
-        { name: "Curly Fries with Cheese Sauce", price: 16.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with cheese sauce." },
-        { name: "Curly Fries with Mentaiko Sauce", price: 18.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with mentaiko mayo sauce." },
-      
-        { name: "Affogato (PB&J)", price: 18.0, category: "Desserts", description: "A scoop of PB&J gelato 'drowned' in a shot of hot espresso." },
-        { name: "Affogato (Dark Choc Sea Salt)", price: 18.0, category: "Desserts", description: "A scoop of Dark Choc Sea Salt gelato ‘drowned’ in a shot of hot espresso." },
-        { name: "Mont Ember", price: 23.0, category: "Desserts", description: "Our classic affogato served with a traditional French canelé." },
-        { name: "French Toast + Gelato (Dark Chocolate Sea Salt)", price: 20.0, category: "Desserts", description: "Rich French toast with a scoop of dark chocolate sea salt gelato." },
-        { name: "French Toast + Gelato (Hazelnut Orange)", price: 20.0, category: "Desserts", description: "Delicious French toast served alongside hazelnut orange gelato." },
-        { name: "Canelé", price: 8.0, category: "Desserts", description: "A small French pastry with a caramelized crust and a soft, custard center." },
-
-        { name: "Roasted Soybean (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Nutty and subtly sweet roasted soybean flavored gelato." },
-        { name: "Black Sesame (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Intense and nutty black sesame flavored gelato." },
-        { name: "Lime Basil (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "A refreshing blend of zesty lime and aromatic basil." },
-        { name: "PB&J (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "The nostalgic flavor of peanut butter and jam in a creamy gelato." },
-        { name: "Dark Chocolate Sea Salt (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "Rich dark chocolate gelato with a hint of sea salt." },
-        { name: "Hazelnut Orange (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "A delightful combination of roasted caramelized hazelnut and bright orange." },
-    ];
-
-    const menuDiv = document.getElementById("menu");
-    const orderList = document.getElementById("order-list");
-    const totalSpan = document.getElementById("total");
-    const clearBtn = document.getElementById("clear-btn");
-    const submitBtn = document.getElementById("submit-btn");
-    const customerNameInput = document.getElementById("customer-name");
-    const customerEmailInput = document.getElementById("customer-email");
-    const toggleBtn = document.getElementById("toggle-menu");
-    const addConfirmationDiv = document.getElementById("add-confirmation");
-    const tableNumberInput = document.getElementById('table-number');
-
-    let order = [];
-    let menuVisible = false;
-
-    function validateCustomerDetails() {
-        const customerName = customerNameInput.value.trim();
-        const customerEmail = customerEmailInput.value.trim();
-
-        if (!customerName) {
-            alert("Please enter your name before placing an order.");
-            return false;
-        }
-
-        if (!customerEmail || !validateEmail(customerEmail)) {
-            alert("Please enter a valid email address.");
-            return false;
-        }
-
-        return true;
-    }
-
-    function validateEmail(email) {
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return emailRegex.test(email);
-    }
-
-    function updateOrderDisplay() {
-        orderList.innerHTML = "";
-        let total = 0;
-
-        order.forEach((item) => {
-            const li = document.createElement("li");
-            li.className = "order-item";
-
-            li.innerHTML = `
-                <span>${item.name} x ${item.quantity}</span>
-                <span class="order-details">
-                    RM${(item.price * item.quantity).toFixed(2)}
-                    <button class="remove-item-button">X</button>
-                </span>
-            `;
-
-            const removeButton = li.querySelector(".remove-item-button");
-            removeButton.addEventListener("click", () => {
-                order = order.filter(orderItem => orderItem.name !== item.name);
-                updateOrderDisplay();
-            });
-
-            orderList.appendChild(li);
-            total += item.price * item.quantity;
-        });
-
-        totalSpan.textContent = total.toFixed(2);
-    }
-
-    function addToOrder(item, quantity) {
-        if (!validateCustomerDetails()) {
-            return;
-        }
-
-        const quantityValue = parseInt(quantity, 10);
-        if (isNaN(quantityValue) || quantityValue <= 0) {
-            alert("Please enter a valid quantity.");
-            return;
-        }
-
-        const existingItemIndex = order.findIndex(orderItem => orderItem.name === item.name);
-
-        if (existingItemIndex > -1) {
-            order[existingItemIndex].quantity += quantityValue;
-        } else {
-            order.push({ ...item, quantity: quantityValue });
-        }
-
-        updateOrderDisplay();
-        showConfirmation("Item added!");
-    }
-
-    function showConfirmation(message) {
-        addConfirmationDiv.textContent = message;
-        addConfirmationDiv.classList.add("show");
-        setTimeout(() => {
-            addConfirmationDiv.classList.remove("show");
-        }, 1500);
-    }
-
-    function clearOrder() {
-        order = [];
-        updateOrderDisplay();
-        showConfirmation("Items cleared!");
-    }
-
-    async function submitOrder() {
-        if (!validateCustomerDetails()) {
-            return;
-        }
-
-        const customerName = customerNameInput.value.trim();
-        const customerEmail = customerEmailInput.value.trim();
-        const tableNumber = tableNumberInput.value.trim();
-
-        if (!customerEmail) {
-            alert("Please enter your email.");
-            return;
-        }
-
-        if (order.length === 0) {
-            alert("Your order is empty.");
-            return;
-        }
-
-        const orderData = {
-            customerName,
-            customerEmail,
-            tableNumber: tableNumber || null,
-            items: order.map(item => ({
-                name: item.name,
-                quantity: item.quantity,
-                price: item.price
-            })),
-            total: parseFloat(totalSpan.textContent),
-            timestamp: new Date()
+        // Firebase and EmailJS Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "pop-up-cafe-v2.firebaseapp.com",
+            projectId: "pop-up-cafe-v2",
+            storageBucket: "pop-up-cafe-v2.firebasestorage.app",
+            messagingSenderId: "676149927239",
+            appId: "1:676149927239:web:648247bb5c150c9f02c062"
         };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        try {
-            const docRef = await addDoc(collection(db, "orders"), orderData);
-            alert(`Order submitted! Document ID: ${docRef.id}`);
-
-            const emailParams = {
-                to_name: customerName,
-                to_email: customerEmail,
-                order_id: docRef.id,
-                table_number: tableNumber || 'Not specified',
-                message: order.map(item =>
-                    `${item.name} x ${item.quantity} - RM${(item.price * item.quantity).toFixed(2)}`
-                ).join("\n"),
-                total: `RM${orderData.total.toFixed(2)}`
-            };
-
-            await emailjs.send("service_GIFgelateria", "template_ti1rkn9", emailParams);
-
-            alert("Receipt sent to your email!");
-            clearOrder();
-
-        } catch (error) {
-            console.error("Error submitting order or sending email:", error);
-            alert("There was an error submitting your order or sending the receipt.");
-        }
-    }
-
-    function toggleMenu() {
-        menuVisible = !menuVisible;
-        menuDiv.classList.toggle("hidden", !menuVisible);
-        toggleBtn.textContent = menuVisible ? "Hide Menu" : "Show Menu";
-        menuDiv.setAttribute('aria-hidden', !menuVisible);
-    }
-
-    toggleBtn.addEventListener("click", toggleMenu);
-    clearBtn.addEventListener("click", clearOrder);
-    submitBtn.addEventListener("click", submitOrder);
-
-    function populateMenu() {
-        const menuSection = document.getElementById("menu");
-        menuSection.innerHTML = '';
-
-        const categories = [
-            { id: "drinks-section", name: "Drinks" },
-            { id: "sandwiches-section", name: "Open Sandwiches" },
-            { id: "bites-section", name: "Small Bites" },
-            { id: "desserts-section", name: "Desserts" },
-            { id: "gelato-section", name: "Gelato (Per Scoop)" }
+        // Menu Data
+        const menu = [
+            { name: "Black (Hot)", price: 10.0, category: "Drinks", description: "Bold and robust black coffee, served hot." },
+            { name: "Black (Iced)", price: 11.0, category: "Drinks", description: "Refreshing black coffee, chilled to perfection." },
+            { name: "White (Hot)", price: 12.0, category: "Drinks", description: "Smooth black coffee with a touch of milk, served hot." },
+            { name: "White (Iced)", price: 13.0, category: "Drinks", description: "Chilled black coffee with milk for a creamy delight." },
+            { name: "Matcha Latte (Hot)", price: 13.0, category: "Drinks", description: "Finely ground matcha whisked with warm milk." },
+            { name: "Matcha Latte (Iced)", price: 14.0, category: "Drinks", description: "Iced matcha latte, a vibrant and refreshing treat." },
+            { name: "PB & J", price: 9.0, category: "Open Sandwiches", description: "generously spread with homemade creamy peanut butter and raspberry jam. A comforting combination of flavors in every bite." },
+            { name: "Crispy Egg Mayo", price: 10.0, category: "Open Sandwiches", description: "creamy egg mayonnaise served on a perfectly toasted muffin" },
+            { name: "Creamy Mushroom", price: 12.0, category: "Open Sandwiches", description: "Sautéed mushrooms in a rich cream sauce, served on muffin." },
+            { name: "Curly Fries with Cheese Sauce", price: 16.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with cheese sauce." },
+            { name: "Curly Fries with Mentaiko Sauce", price: 18.0, category: "Small Bites", description: "Seasoned spiral-cut fries, paired with mentaiko mayo sauce." },
+            { name: "Affogato (PB&J)", price: 18.0, category: "Desserts", description: "A scoop of PB&J gelato 'drowned' in a shot of hot espresso." },
+            { name: "Affogato (Dark Choc Sea Salt)", price: 18.0, category: "Desserts", description: "A scoop of Dark Choc Sea Salt gelato ‘drowned’ in a shot of hot espresso." },
+            { name: "Mont Ember", price: 23.0, category: "Desserts", description: "Our classic affogato served with a traditional French canelé." },
+            { name: "French Toast + Gelato (Dark Chocolate Sea Salt)", price: 20.0, category: "Desserts", description: "Rich French toast with a scoop of dark chocolate sea salt gelato." },
+            { name: "French Toast + Gelato (Hazelnut Orange)", price: 20.0, category: "Desserts", description: "Delicious French toast served alongside hazelnut orange gelato." },
+            { name: "Canelé", price: 8.0, category: "Desserts", description: "A small French pastry with a caramelized crust and a soft, custard center." },
+            {
+                name: "Gelato",
+                category: "Gelato",
+                sizes: [
+                    { size: "Single Scoop", price: 10.0 },
+                    { size: "Double Scoop", price: 18.0 }
+                ],
+                flavors: ["Dark Choc Sea Salt", "Roasted Hojicha", "Matcha", "Hazelnut Orange"],
+                description: "Choose your size and your favorite flavor(s)."
+            }
         ];
 
-        categories.forEach(category => {
-            const categoryItems = menu.filter(item => item.category === category.name);
-            if (categoryItems.length > 0) {
+        // DOM Elements
+        const menuDiv = document.getElementById("menu");
+        const orderList = document.getElementById("order-list");
+        const totalSpan = document.getElementById("total");
+        const clearBtn = document.getElementById("clear-btn");
+        const submitBtn = document.getElementById("submit-btn");
+        const customerNameInput = document.getElementById("customer-name");
+        const customerEmailInput = document.getElementById("customer-email");
+        const toggleBtn = document.getElementById("toggle-menu");
+        const addConfirmationDiv = document.getElementById("add-confirmation");
+        const tableNumberInput = document.getElementById('table-number');
+
+        let order = [];
+        let menuVisible = false;
+
+        // Functions
+        const validateEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+
+        const validateCustomerDetails = () => {
+            const name = customerNameInput.value.trim();
+            const email = customerEmailInput.value.trim();
+            if (!name) {
+                alert("Please enter your name before placing an order.");
+                return false;
+            }
+            if (!email || !validateEmail(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+            return true;
+        };
+
+        const updateOrderDisplay = () => {
+            orderList.innerHTML = "";
+            let total = 0;
+            order.forEach(item => {
+                const li = document.createElement("li");
+                li.className = "order-item";
+                li.innerHTML = `
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span class="order-details">
+                        RM${(item.price * item.quantity).toFixed(2)}
+                        <button class="remove-item-button">X</button>
+                    </span>
+                `;
+                li.querySelector(".remove-item-button").addEventListener("click", () => {
+                    order = order.filter(orderItem => orderItem.name !== item.name);
+                    updateOrderDisplay();
+                });
+                orderList.appendChild(li);
+                total += item.price * item.quantity;
+            });
+            totalSpan.textContent = total.toFixed(2);
+        };
+
+        const showConfirmation = (message) => {
+            addConfirmationDiv.textContent = message;
+            addConfirmationDiv.classList.add("show");
+            setTimeout(() => addConfirmationDiv.classList.remove("show"), 1500);
+        };
+
+        const addToOrder = (item, quantity) => {
+            if (!validateCustomerDetails()) return;
+            const quantityValue = parseInt(quantity, 10);
+            if (isNaN(quantityValue) || quantityValue <= 0) {
+                alert("Please enter a valid quantity.");
+                return;
+            }
+            const existingItem = order.find(orderItem => orderItem.name === item.name);
+            if (existingItem) {
+                existingItem.quantity += quantityValue;
+            } else {
+                order.push({ ...item, quantity: quantityValue });
+            }
+            updateOrderDisplay();
+            showConfirmation("Item added!");
+        };
+
+        const clearOrder = () => {
+            order = [];
+            updateOrderDisplay();
+            showConfirmation("Items cleared!");
+        };
+
+        const submitOrder = async () => {
+            if (!validateCustomerDetails() || order.length === 0) {
+                if (order.length === 0) alert("Your order is empty.");
+                return;
+            }
+
+            const orderData = {
+                customerName: customerNameInput.value.trim(),
+                customerEmail: customerEmailInput.value.trim(),
+                tableNumber: tableNumberInput.value.trim() || null,
+                items: order.map(item => ({ name: item.name, quantity: item.quantity, price: item.price })),
+                total: parseFloat(totalSpan.textContent),
+                timestamp: new Date()
+            };
+
+            try {
+                const docRef = await addDoc(collection(db, "orders"), orderData);
+                alert(`Order submitted! Document ID: ${docRef.id}`);
+
+                const emailParams = {
+                    to_name: orderData.customerName,
+                    to_email: orderData.customerEmail,
+                    order_id: docRef.id,
+                    table_number: orderData.tableNumber || 'Not specified',
+                    message: order.map(item => `${item.name} x ${item.quantity} - RM${(item.price * item.quantity).toFixed(2)}`).join("\n"),
+                    total: `RM${orderData.total.toFixed(2)}`
+                };
+                await emailjs.send("service_GIFgelateria", "template_ti1rkn9", emailParams);
+
+                alert("Receipt sent to your email!");
+                clearOrder();
+            } catch (error) {
+                console.error("Error submitting order or sending email:", error);
+                alert("There was an error submitting your order or sending the receipt.");
+            }
+        };
+
+        const toggleMenu = () => {
+            menuVisible = !menuVisible;
+            menuDiv.classList.toggle("hidden", !menuVisible);
+            toggleBtn.textContent = menuVisible ? "Hide Menu" : "Show Menu";
+            menuDiv.setAttribute('aria-hidden', !menuVisible);
+        };
+
+        const populateMenu = () => {
+            menuDiv.innerHTML = '';
+            const categories = [...new Set(menu.map(item => item.category))];
+            categories.forEach(categoryName => {
                 const categoryDiv = document.createElement("div");
-                categoryDiv.id = category.id;
                 categoryDiv.className = "menu-category";
-                categoryDiv.innerHTML = `<h2>${category.name}</h2><div class="menu-items" id="${category.name.toLowerCase().replace(/ /g, '-')}-menu"></div>`;
-                menuSection.appendChild(categoryDiv);
-
+                categoryDiv.innerHTML = `<h2>${categoryName}</h2><div class="menu-items"></div>`;
                 const itemsContainer = categoryDiv.querySelector('.menu-items');
-                categoryItems.forEach(item => {
-                    const div = document.createElement("div");
-                    div.className = "menu-item";
-                    div.innerHTML = `
-                        <div class="item-details">
-                            <h3>${item.name}</h3>
-                            ${item.description ? `<p class="item-description">${item.description}</p>` : ''}
-                        </div>
-                        <p class="item-price">RM${item.price.toFixed(2)}</p>
-                        <div class="item-quantity-controls">
-                            <button class="quantity-btn minus-btn">-</button>
-                            <span class="quantity-display">1</span>
-                            <button class="quantity-btn plus-btn">+</button>
-                        </div>
-                        <div class="item-add-button">
-                            <button>Add RM${item.price.toFixed(2)}</button>
-                        </div>
-                    `;
 
-                    const minusBtn = div.querySelector(".minus-btn");
-                    const plusBtn = div.querySelector(".plus-btn");
-                    const quantityDisplay = div.querySelector(".quantity-display");
-                    const addButton = div.querySelector(".item-add-button button");
-                    let quantity = 1;
+                menu.filter(item => item.category === categoryName).forEach(item => {
+                    const itemDiv = document.createElement("div");
 
-                    function updateButtonPrice() {
-                        const totalItemPrice = item.price * quantity;
-                        addButton.textContent = `Add RM${totalItemPrice.toFixed(2)}`;
-                    }
+                    if (categoryName === "Gelato") {
+                        itemDiv.className = "menu-item";
+                        itemDiv.innerHTML = `
+                            <div class="item-details">
+                                <h3>${item.name}</h3>
+                                <div class="gelato-options">
+                                    <label for="size-${item.name.replace(/\s/g, '-')}">Size:</label>
+                                    <select id="size-${item.name.replace(/\s/g, '-')}" class="gelato-size">
+                                        ${item.sizes.map(size => `<option value="${size.price}">${size.size} - RM${size.price.toFixed(2)}</option>`).join('')}
+                                    </select>
+                                    <label for="flavor1-${item.name.replace(/\s/g, '-')}">First Scoop:</label>
+                                    <select id="flavor1-${item.name.replace(/\s/g, '-')}" class="gelato-flavor">
+                                        ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
+                                    </select>
+                                    <div id="flavor2-container" style="display: none;">
+                                        <label for="flavor2-${item.name.replace(/\s/g, '-')}">Second Scoop:</label>
+                                        <select id="flavor2-${item.name.replace(/\s/g, '-')}" class="gelato-flavor">
+                                            ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="item-price">RM${item.sizes[0].price.toFixed(2)}</p>
+                            <div class="item-quantity-controls">
+                                <button class="quantity-btn minus-btn">-</button>
+                                <span class="quantity-display">1</span>
+                                <button class="quantity-btn plus-btn">+</button>
+                            </div>
+                            <div class="item-add-button">
+                                <button>Add RM${item.sizes[0].price.toFixed(2)}</button>
+                            </div>
+                        `;
 
-                    minusBtn.addEventListener("click", () => {
-                        if (quantity > 1) {
-                            quantity--;
+                        const sizeSelect = itemDiv.querySelector('.gelato-size');
+                        const priceElement = itemDiv.querySelector('.item-price');
+                        const flavor2Container = itemDiv.querySelector('#flavor2-container');
+                        const minusBtn = itemDiv.querySelector(".minus-btn");
+                        const plusBtn = itemDiv.querySelector(".plus-btn");
+                        const quantityDisplay = itemDiv.querySelector(".quantity-display");
+                        const addButton = itemDiv.querySelector(".item-add-button button");
+                        let quantity = 1;
+
+                        function updateButtonPrice() {
+                            const basePrice = parseFloat(sizeSelect.value);
+                            const totalItemPrice = basePrice * quantity;
+                            addButton.textContent = `Add RM${totalItemPrice.toFixed(2)}`;
+                        }
+
+                        sizeSelect.addEventListener('change', (event) => {
+                            const selectedPrice = parseFloat(event.target.value);
+                            priceElement.textContent = `RM${selectedPrice.toFixed(2)}`;
+                            if (event.target.selectedIndex === 1) {
+                                flavor2Container.style.display = 'block';
+                            } else {
+                                flavor2Container.style.display = 'none';
+                            }
+                            updateButtonPrice();
+                        });
+
+                        minusBtn.addEventListener("click", () => {
+                            if (quantity > 1) {
+                                quantity--;
+                                quantityDisplay.textContent = quantity;
+                                updateButtonPrice();
+                            }
+                        });
+
+                        plusBtn.addEventListener("click", () => {
+                            quantity++;
                             quantityDisplay.textContent = quantity;
                             updateButtonPrice();
+                        });
+
+                        addButton.addEventListener("click", () => {
+                            const flavor1Select = itemDiv.querySelector("#flavor1-Gelato");
+                            const basePrice = parseFloat(sizeSelect.value);
+                            const sizeName = sizeSelect.options[sizeSelect.selectedIndex].text.split(' - ')[0];
+                            const flavor1 = flavor1Select.value;
+                            let itemName = `${item.name} (${sizeName}, ${flavor1})`;
+
+                            if (sizeName === "Double Scoop") {
+                                const flavor2Select = itemDiv.querySelector("#flavor2-Gelato");
+                                const flavor2 = flavor2Select.value;
+                                itemName = `${item.name} (${sizeName}, ${flavor1} & ${flavor2})`;
+                            }
+
+                            addToOrder({ name: itemName, price: basePrice }, quantity);
+                            // Reset quantity to 1 after adding to order
+                            quantity = 1;
+                            quantityDisplay.textContent = quantity;
+                            updateButtonPrice();
+                        });
+                    } else {
+                        itemDiv.className = "menu-item";
+                        itemDiv.innerHTML = `
+                            <div class="item-details">
+                                <h3>${item.name}</h3>
+                                ${item.description ? `<p class="item-description">${item.description}</p>` : ''}
+                            </div>
+                            <p class="item-price">RM${item.price.toFixed(2)}</p>
+                            <div class="item-quantity-controls">
+                                <button class="quantity-btn minus-btn">-</button>
+                                <span class="quantity-display">1</span>
+                                <button class="quantity-btn plus-btn">+</button>
+                            </div>
+                            <div class="item-add-button">
+                                <button>Add RM${item.price.toFixed(2)}</button>
+                            </div>
+                        `;
+                        const minusBtn = itemDiv.querySelector(".minus-btn");
+                        const plusBtn = itemDiv.querySelector(".plus-btn");
+                        const quantityDisplay = itemDiv.querySelector(".quantity-display");
+                        const addButton = itemDiv.querySelector(".item-add-button button");
+                        let quantity = 1;
+
+                        function updateButtonPrice() {
+                            const totalItemPrice = item.price * quantity;
+                            addButton.textContent = `Add RM${totalItemPrice.toFixed(2)}`;
                         }
-                    });
 
-                    plusBtn.addEventListener("click", () => {
-                        quantity++;
-                        quantityDisplay.textContent = quantity;
-                        updateButtonPrice();
-                    });
+                        minusBtn.addEventListener("click", () => {
+                            if (quantity > 1) {
+                                quantity--;
+                                quantityDisplay.textContent = quantity;
+                                updateButtonPrice();
+                            }
+                        });
 
-                    addButton.addEventListener("click", () => {
-                        addToOrder(item, quantity);
-                        // Reset quantity to 1 after adding to order
-                        quantity = 1;
-                        quantityDisplay.textContent = quantity;
-                        updateButtonPrice();
-                    });
+                        plusBtn.addEventListener("click", () => {
+                            quantity++;
+                            quantityDisplay.textContent = quantity;
+                            updateButtonPrice();
+                        });
 
-                    itemsContainer.appendChild(div);
+                        addButton.addEventListener("click", () => {
+                            addToOrder(item, quantity);
+                            // Reset quantity to 1 after adding to order
+                            quantity = 1;
+                            quantityDisplay.textContent = quantity;
+                            updateButtonPrice();
+                        });
+                    }
+                    itemsContainer.appendChild(itemDiv);
                 });
-            }
-        });
-    }
+                menuDiv.appendChild(categoryDiv);
+            });
+        };
 
-    populateMenu();
-</script>
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  (function(){
-    emailjs.init("apCgXY03qnGQFDXBb");
-  })();
-</script>
+        // Initialize and Event Listeners
+        populateMenu();
+        toggleBtn.addEventListener("click", toggleMenu);
+        clearBtn.addEventListener("click", clearOrder);
+        submitBtn.addEventListener("click", submitOrder);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("apCgXY03qnGQFDXBb");
+        })();
+    </script>
 </body>
 </html>

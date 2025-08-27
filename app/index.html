@@ -629,12 +629,23 @@
                             detailsHtml += `<option value="${size.price}">${size.size} - RM${size.price.toFixed(2)}</option>`;
                         });
                         detailsHtml += `</select>`;
-                        detailsHtml += `<div id="flavor-select-container">
-                            <label for="flavor1-${item.name.replace(/\s/g, '-')}" style="font-size: 0.9em;">Flavors:</label>
+
+                        // First flavor select, always visible
+                        detailsHtml += `<div class="flavor-select-container">
+                            <label for="flavor1-${item.name.replace(/\s/g, '-')}" style="font-size: 0.9em;">Flavor 1:</label>
                             <select id="flavor1-${item.name.replace(/\s/g, '-')}" class="gelato-flavor-select">
                                 ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
                             </select>
                         </div>`;
+
+                        // Second flavor select, hidden by default
+                        detailsHtml += `<div id="flavor2-container" style="display: none;">
+                            <label for="flavor2-${item.name.replace(/\s/g, '-')}" style="font-size: 0.9em;">Flavor 2:</label>
+                            <select id="flavor2-${item.name.replace(/\s/g, '-')}" class="gelato-flavor-select">
+                                ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
+                            </select>
+                        </div>`;
+                        
                         detailsHtml += item.description ? `<p class="item-description">${item.description}</p>` : '';
                     } else {
                         currentPrice = item.price;
@@ -669,9 +680,15 @@
 
                     const sizeSelect = itemDiv.querySelector('.item-sizes-select');
                     if (sizeSelect) {
+                        const flavor2Container = itemDiv.querySelector('#flavor2-container');
                         sizeSelect.addEventListener('change', (event) => {
                             const selectedPrice = parseFloat(event.target.value);
                             priceElement.textContent = `RM${selectedPrice.toFixed(2)}`;
+                            if (event.target.options[event.target.selectedIndex].text.includes("Double Scoop")) {
+                                flavor2Container.style.display = 'block';
+                            } else {
+                                flavor2Container.style.display = 'none';
+                            }
                             updateButtonPrice();
                         });
                     }
@@ -708,8 +725,12 @@
                             itemName = `${item.name} (${selectedOption})`;
                         } else if (item.sizes) {
                             const selectedSize = itemDiv.querySelector('.item-sizes-select').options[itemDiv.querySelector('.item-sizes-select').selectedIndex].text;
-                            const selectedFlavor = itemDiv.querySelector('.gelato-flavor-select').options[itemDiv.querySelector('.gelato-flavor-select').selectedIndex].text;
-                            itemName = `${item.name} (${selectedSize}, ${selectedFlavor})`;
+                            const flavor1 = itemDiv.querySelector('#flavor1-' + item.name.replace(/\s/g, '-')).value;
+                            itemName = `${item.name} (${selectedSize}, ${flavor1})`;
+                            if (selectedSize.includes("Double Scoop")) {
+                                const flavor2 = itemDiv.querySelector('#flavor2-' + item.name.replace(/\s/g, '-')).value;
+                                itemName = `${item.name} (${selectedSize}, ${flavor1} & ${flavor2})`;
+                            }
                         }
                         
                         addToOrder({ name: itemName, price: basePrice, quantity: quantity });

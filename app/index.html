@@ -321,13 +321,20 @@
             outline-offset: 2px;
         }
 
-        .gelato-size {
+        .gelato-size, .gelato-flavor {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: var(--border-radius);
             font-size: 0.9em;
             width: 100%;
             margin: 5px 0;
+        }
+
+        .gelato-flavor-select {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 100%;
         }
 
         .menu-item.gelato-item {
@@ -462,19 +469,15 @@
             { name: "French Toast + Gelato (Hazelnut Orange)", price: 20.0, category: "Desserts", description: "Delicious French toast served alongside hazelnut orange gelato." },
             { name: "Canelé", price: 8.0, category: "Desserts", description: "A small French pastry with a caramelized crust and a soft, custard center." },
             {
-                name: "Roasted Soybean (Gelato)",
+                name: "Gelato",
                 category: "Gelato",
-                flavors: [
+                sizes: [
                     { size: "Single Scoop", price: 10.0 },
                     { size: "Double Scoop", price: 18.0 }
                 ],
-                description: "Nutty and subtly sweet roasted soybean flavored gelato."
-            },
-            { name: "Black Sesame (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "Intense and nutty black sesame flavored gelato." },
-            { name: "Lime Basil (Gelato)", price: 10.0, category: "Gelato (Per Scoop)", description: "A refreshing blend of zesty lime and aromatic basil." },
-            { name: "PB&J (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "The nostalgic flavor of peanut butter and jam in a creamy gelato." },
-            { name: "Dark Chocolate Sea Salt (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "Rich dark chocolate gelato with a hint of sea salt." },
-            { name: "Hazelnut Orange (Gelato)", price: 13.0, category: "Gelato (Per Scoop)", description: "A delightful combination of roasted caramelized hazelnut and bright orange." },
+                flavors: ["Dark Choc Sea Salt", "Roasted Hojicha", "Matcha", "Hazelnut Orange"],
+                description: "Choose your size and your favorite flavor(s)."
+            }
         ];
 
         // DOM Elements
@@ -627,8 +630,20 @@
                             <div>
                                 <label for="size-${item.name.replace(/\s/g, '-')}">Size:</label>
                                 <select id="size-${item.name.replace(/\s/g, '-')}" class="gelato-size">
-                                    ${item.flavors.map(flavor => `<option value="${flavor.price}">${flavor.size} - RM${flavor.price.toFixed(2)}</option>`).join('')}
+                                    ${item.sizes.map(size => `<option value="${size.price}">${size.size} - RM${size.price.toFixed(2)}</option>`).join('')}
                                 </select>
+                            </div>
+                            <div class="gelato-flavor-select">
+                                <label for="flavor1-${item.name.replace(/\s/g, '-')}">First Scoop:</label>
+                                <select id="flavor1-${item.name.replace(/\s/g, '-')}" class="gelato-flavor">
+                                    ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
+                                </select>
+                                <div id="flavor2-container" style="display: none;">
+                                    <label for="flavor2-${item.name.replace(/\s/g, '-')}">Second Scoop:</label>
+                                    <select id="flavor2-${item.name.replace(/\s/g, '-')}" class="gelato-flavor">
+                                        ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
+                                    </select>
+                                </div>
                             </div>
                             <div class="item-quantity-controls">
                                 <label for="qty-${item.name.replace(/\s/g, '')}">Qty:</label>
@@ -638,12 +653,33 @@
                                 <button>Add</button>
                             </div>
                         `;
+
+                        // Add event listener for size change to show/hide second flavor dropdown
+                        itemDiv.querySelector('.gelato-size').addEventListener('change', (event) => {
+                            const flavor2Container = itemDiv.querySelector('#flavor2-container');
+                            if (event.target.selectedIndex === 1) { // Double Scoop
+                                flavor2Container.style.display = 'block';
+                            } else {
+                                flavor2Container.style.display = 'none';
+                            }
+                        });
+
                         itemDiv.querySelector("button").addEventListener("click", () => {
                             const quantity = itemDiv.querySelector("input").value;
                             const sizeSelect = itemDiv.querySelector(".gelato-size");
-                            const newPrice = parseFloat(sizeSelect.value);
-                            const itemName = `${item.name} (${sizeSelect.options[sizeSelect.selectedIndex].text.split(' - ')[0]})`;
-                            addToOrder({ name: itemName, price: newPrice }, quantity);
+                            const flavor1Select = itemDiv.querySelector("#flavor1-Gelato");
+                            const basePrice = parseFloat(sizeSelect.value);
+                            const sizeName = sizeSelect.options[sizeSelect.selectedIndex].text.split(' - ')[0];
+                            const flavor1 = flavor1Select.value;
+                            let itemName = `${item.name} (${sizeName}, ${flavor1})`;
+
+                            if (sizeName === "Double Scoop") {
+                                const flavor2Select = itemDiv.querySelector("#flavor2-Gelato");
+                                const flavor2 = flavor2Select.value;
+                                itemName = `${item.name} (${sizeName}, ${flavor1} & ${flavor2})`;
+                            }
+
+                            addToOrder({ name: itemName, price: basePrice }, quantity);
                         });
                     } else {
                         itemDiv.className = "menu-item";

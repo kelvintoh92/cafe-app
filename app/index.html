@@ -6,7 +6,7 @@
     <meta name="description" content="Popup Cafe - Order your favorite drinks and pastries.">
     <meta name="keywords" content="cafe, popup, coffee, pastries, order">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <title>Popup Cafe</title>
+    <title>DBMK x GIF</title>
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 <style>
@@ -357,8 +357,6 @@ button:focus, input:focus {
     <h1>Welcome to Studio Cafe by DBMK x GIF</h1>
 
     <div id="customer-section">
-        <label for="table-number">Table Number:</label>
-        <input type="number" id="table-number" name="table-number" min="1" max="10" placeholder="Enter table number (1-10)" />
         <label for="customer-name">Your Name:</label>
         <input type="text" id="customer-name" placeholder="Enter your name..." />
         <label for="customer-email">Your Email:</label>
@@ -505,7 +503,6 @@ button:focus, input:focus {
             const orderData = {
                 customerName: customerNameInput.value.trim(),
                 customerEmail: customerEmailInput.value.trim(),
-                tableNumber: tableNumberInput.value.trim() || null,
                 items: order.map(item => ({ name: item.name, quantity: item.quantity, price: item.price })),
                 total: parseFloat(totalSpan.textContent),
                 timestamp: new Date()
@@ -519,7 +516,6 @@ button:focus, input:focus {
                     to_name: orderData.customerName,
                     to_email: orderData.customerEmail,
                     order_id: docRef.id,
-                    table_number: orderData.tableNumber || 'Not specified',
                     message: order.map(item => `${item.name} x ${item.quantity} - RM${(item.price * item.quantity).toFixed(2)}`).join("\n"),
                     total: `RM${orderData.total.toFixed(2)}`
                 };

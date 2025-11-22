@@ -93,29 +93,12 @@ h1 {
     font-family: var(--font-family);
     display: block;
     box-sizing: border-box;
-    transition: border-color 0.3s;
-}
-#customer-section input.invalid {
-    border-color: var(--danger-color);
-}
-#customer-section input.valid {
-    border-color: var(--success-color);
 }
 .notification-email {
     font-size: 0.89em;
     color: #555;
     margin-top: 2px;
     margin-bottom: -8px;
-    display: block;
-}
-.email-error {
-    font-size: 0.85em;
-    color: var(--danger-color);
-    margin-top: -10px;
-    margin-bottom: 8px;
-    display: none;
-}
-.email-error.show {
     display: block;
 }
 #toggle-menu {
@@ -130,8 +113,6 @@ h1 {
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     transition: background 0.18s, color 0.18s;
-    min-height: 44px;
-    min-width: 44px;
 }
 #toggle-menu:hover {
     background: #111;
@@ -216,8 +197,6 @@ h1 {
     border-radius: 7px;
     cursor: pointer;
     transition: background 0.18s, color 0.18s;
-    min-height: 44px;
-    min-width: 44px;
 }
 .quantity-btn:hover {
     background: #111;
@@ -246,8 +225,6 @@ h1 {
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     transition: background 0.18s, color 0.18s;
-    min-height: 44px;
-    min-width: 44px;
 }
 .item-add-button button:hover {
     background: #fff;
@@ -290,8 +267,6 @@ h1 {
     font-size: 14px;
     font-weight: 600;
     transition: background 0.2s, color 0.2s;
-    min-height: 44px;
-    min-width: 44px;
 }
 .remove-item-button:hover {
     background-color: #d00;
@@ -310,23 +285,18 @@ h1 {
     background: #111;
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     transition: background 0.18s, color 0.18s, border 0.18s;
-    min-height: 44px;
 }
-.btn:hover:not(:disabled) {
+.btn:hover {
     background: #fff;
     color: #111;
     border-color: #111;
-}
-.btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
 }
 #clear-btn {
     background: #fff;
     color: #d00;
     border-color: #d00;
 }
-#clear-btn:hover:not(:disabled) {
+#clear-btn:hover {
     background: #d00;
     color: #fff;
     border-color: #d00;
@@ -336,7 +306,7 @@ h1 {
     color: #fff;
     border-color: #111;
 }
-#submit-btn:hover:not(:disabled) {
+#submit-btn:hover {
     background: #fff;
     color: #111;
     border-color: #111;
@@ -364,7 +334,7 @@ h1 {
     opacity: 1;
     transform: translateX(-50%) scale(1.08);
 }
-button:focus, input:focus, select:focus {
+button:focus, input:focus {
     outline: 2px solid #111;
     outline-offset: 2px;
 }
@@ -401,16 +371,6 @@ button:focus, input:focus, select:focus {
         margin-top: 10px;
         margin-bottom: 6px;
     }
-    #order-summary {
-        position: sticky;
-        bottom: 0;
-        background: var(--white-color);
-        z-index: 100;
-        margin-bottom: 0;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-}
 </style>
 </head>
 <body>
@@ -425,11 +385,10 @@ button:focus, input:focus, select:focus {
         <input type="text" id="customer-name" placeholder="Enter your name..." />
         <label for="customer-email">Your Email:</label>
         <input type="email" id="customer-email" placeholder="Enter your email..." />
-        <small class="email-error">Please enter a valid email address</small>
         <small class="notification-email">We'll whisk a receipt to your inbox – just pop in your email.</small>
     </div>
 
-    <button id="toggle-menu" aria-expanded="false">Show Menu</button>
+    <button id="toggle-menu">Show Menu</button>
 
     <section id="menu" class="hidden" aria-hidden="true"></section>
 
@@ -442,9 +401,24 @@ button:focus, input:focus, select:focus {
         <button id="clear-btn" class="btn">Clear Order</button>
     </section>
 
-    <div id="add-confirmation" class="add-confirmation" role="alert" aria-live="polite">Item added!</div>
+    <div id="add-confirmation" class="add-confirmation">Item added!</div>
 
     <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+        // Firebase and EmailJS Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "pop-up-cafe-v2.firebaseapp.com",
+            projectId: "pop-up-cafe-v2",
+            storageBucket: "pop-up-cafe-v2.firebasestorage.app",
+            messagingSenderId: "676149927239",
+            appId: "1:676149927239:web:648247bb5c150c9f02c062"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
         // Menu Data
         const menu = [
             { name: "Black", category: "Drinks", options: { "Hot": 10.0, "Iced": 11.0 } },
@@ -472,84 +446,24 @@ button:focus, input:focus, select:focus {
         const submitBtn = document.getElementById("submit-btn");
         const customerNameInput = document.getElementById("customer-name");
         const customerEmailInput = document.getElementById("customer-email");
-        const emailError = document.querySelector('.email-error');
         const toggleBtn = document.getElementById("toggle-menu");
         const addConfirmationDiv = document.getElementById("add-confirmation");
 
         let order = [];
         let menuVisible = false;
-        let menuPopulated = false;
 
-        // Load saved order from sessionStorage
-        const loadSavedOrder = () => {
-            try {
-                const savedOrder = sessionStorage.getItem('cafeOrder');
-                const savedName = sessionStorage.getItem('customerName');
-                const savedEmail = sessionStorage.getItem('customerEmail');
-                
-                if (savedOrder) {
-                    order = JSON.parse(savedOrder);
-                    updateOrderDisplay();
-                }
-                if (savedName) customerNameInput.value = savedName;
-                if (savedEmail) customerEmailInput.value = savedEmail;
-            } catch (e) {
-                console.error('Error loading saved data:', e);
-            }
-        };
-
-        // Save order to sessionStorage
-        const saveOrder = () => {
-            try {
-                sessionStorage.setItem('cafeOrder', JSON.stringify(order));
-                sessionStorage.setItem('customerName', customerNameInput.value.trim());
-                sessionStorage.setItem('customerEmail', customerEmailInput.value.trim());
-            } catch (e) {
-                console.error('Error saving order:', e);
-            }
-        };
-
-        // Email validation
+        // Functions
         const validateEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
-
-        // Real-time email validation
-        customerEmailInput.addEventListener('blur', () => {
-            const email = customerEmailInput.value.trim();
-            if (email && !validateEmail(email)) {
-                customerEmailInput.classList.add('invalid');
-                customerEmailInput.classList.remove('valid');
-                emailError.classList.add('show');
-            } else if (email) {
-                customerEmailInput.classList.add('valid');
-                customerEmailInput.classList.remove('invalid');
-                emailError.classList.remove('show');
-            } else {
-                customerEmailInput.classList.remove('valid', 'invalid');
-                emailError.classList.remove('show');
-            }
-        });
-
-        customerEmailInput.addEventListener('input', () => {
-            saveOrder();
-        });
-
-        customerNameInput.addEventListener('input', () => {
-            saveOrder();
-        });
 
         const validateCustomerDetails = () => {
             const name = customerNameInput.value.trim();
             const email = customerEmailInput.value.trim();
             if (!name) {
                 alert("Please enter your name before placing an order.");
-                customerNameInput.focus();
                 return false;
             }
             if (!email || !validateEmail(email)) {
                 alert("Please enter a valid email address.");
-                customerEmailInput.focus();
-                customerEmailInput.classList.add('invalid');
-                emailError.classList.add('show');
                 return false;
             }
             return true;
@@ -565,13 +479,12 @@ button:focus, input:focus, select:focus {
                     <span>${item.name} x ${item.quantity}</span>
                     <span class="order-details">
                         RM${(item.price * item.quantity).toFixed(2)}
-                        <button class="remove-item-button" aria-label="Remove ${item.name}">X</button>
+                        <button class="remove-item-button">X</button>
                     </span>
                 `;
                 li.querySelector(".remove-item-button").addEventListener("click", () => {
                     order = order.filter(orderItem => orderItem.name !== item.name);
                     updateOrderDisplay();
-                    saveOrder();
                 });
                 orderList.appendChild(li);
                 total += item.price * item.quantity;
@@ -594,18 +507,13 @@ button:focus, input:focus, select:focus {
                 order.push({ ...item });
             }
             updateOrderDisplay();
-            saveOrder();
             showConfirmation("Item added!");
         };
 
         const clearOrder = () => {
-            if (order.length === 0) return;
-            if (confirm("Are you sure you want to clear your order?")) {
-                order = [];
-                updateOrderDisplay();
-                saveOrder();
-                showConfirmation("Order cleared!");
-            }
+            order = [];
+            updateOrderDisplay();
+            showConfirmation("Items cleared!");
         };
 
         const submitOrder = async () => {
@@ -614,69 +522,45 @@ button:focus, input:focus, select:focus {
                 return;
             }
 
-            // Disable button and show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Submitting...";
-
             const orderData = {
                 customerName: customerNameInput.value.trim(),
                 customerEmail: customerEmailInput.value.trim(),
                 items: order.map(item => ({ name: item.name, quantity: item.quantity, price: item.price })),
                 total: parseFloat(totalSpan.textContent),
-                timestamp: new Date().toISOString()
+                timestamp: new Date()
             };
 
             try {
-                // Submit to your backend API
-                const response = await fetch('/api/submit-order', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(orderData)
-                });
+                const docRef = await addDoc(collection(db, "orders"), orderData);
+                alert(`Order submitted! Document ID: ${docRef.id}`);
 
-                if (!response.ok) {
-                    throw new Error('Failed to submit order');
-                }
+                const emailParams = {
+                    to_name: orderData.customerName,
+                    to_email: orderData.customerEmail,
+                    order_id: docRef.id,
+                    message: order.map(item => `${item.name} x ${item.quantity} - RM${(item.price * item.quantity).toFixed(2)}`).join("\n"),
+                    total: `RM${orderData.total.toFixed(2)}`
+                };
+                await emailjs.send("service_GIFgelateria", "template_ti1rkn9", emailParams);
 
-                const result = await response.json();
-                alert(`Order submitted successfully! Order ID: ${result.orderId}`);
-                
-                // Clear order after successful submission
-                order = [];
-                updateOrderDisplay();
-                sessionStorage.removeItem('cafeOrder');
-                
+                alert("Receipt sent to your email!");
+                clearOrder();
             } catch (error) {
-                console.error("Error submitting order:", error);
-                alert("There was an error submitting your order. Please try again or contact staff.");
-            } finally {
-                // Re-enable button
-                submitBtn.disabled = false;
-                submitBtn.textContent = "Submit Order";
+                console.error("Error submitting order or sending email:", error);
+                alert("There was an error submitting your order or sending the receipt.");
             }
         };
 
         const toggleMenu = () => {
             menuVisible = !menuVisible;
-            
-            // Populate menu on first show
-            if (menuVisible && !menuPopulated) {
-                populateMenu();
-                menuPopulated = true;
-            }
-            
             menuDiv.classList.toggle("hidden", !menuVisible);
             toggleBtn.textContent = menuVisible ? "Hide Menu" : "Show Menu";
-            toggleBtn.setAttribute('aria-expanded', menuVisible);
             menuDiv.setAttribute('aria-hidden', !menuVisible);
         };
 
         const populateMenu = () => {
             menuDiv.innerHTML = '';
             const categories = ["Gelato", "Drinks"];
-            
             categories.forEach(categoryName => {
                 const categoryDiv = document.createElement("div");
                 categoryDiv.className = "menu-category";
@@ -693,7 +577,7 @@ button:focus, input:focus, select:focus {
                     if (item.options) {
                         const optionsKeys = Object.keys(item.options);
                         currentPrice = item.options[optionsKeys[0]];
-                        detailsHtml += `<select class="item-options-select" aria-label="Select option for ${item.name}">`;
+                        detailsHtml += `<select class="item-options-select">`;
                         for (const option in item.options) {
                             detailsHtml += `<option value="${item.options[option]}">${option}</option>`;
                         }
@@ -701,22 +585,24 @@ button:focus, input:focus, select:focus {
                         detailsHtml += item.description ? `<p class="item-description">${item.description}</p>` : '';
                     } else if (item.sizes) {
                         currentPrice = item.sizes[0].price;
-                        detailsHtml += `<select class="item-sizes-select" aria-label="Select size for ${item.name}">`;
+                        detailsHtml += `<select class="item-sizes-select">`;
                         item.sizes.forEach(size => {
                             detailsHtml += `<option value="${size.price}">${size.size} - RM${size.price.toFixed(2)}</option>`;
                         });
                         detailsHtml += `</select>`;
 
+                        // First flavor select, always visible
                         detailsHtml += `<div class="flavor-select-container">
                             <label for="flavor1-${item.name.replace(/\s/g, '-')}" style="font-size: 0.9em;">Flavor 1:</label>
-                            <select id="flavor1-${item.name.replace(/\s/g, '-')}" class="gelato-flavor-select" aria-label="Select first flavor">
+                            <select id="flavor1-${item.name.replace(/\s/g, '-')}" class="gelato-flavor-select">
                                 ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
                             </select>
                         </div>`;
 
-                        detailsHtml += `<div id="flavor2-container-${item.name.replace(/\s/g, '-')}" style="display: none;">
+                        // Second flavor select, hidden by default
+                        detailsHtml += `<div id="flavor2-container" style="display: none;">
                             <label for="flavor2-${item.name.replace(/\s/g, '-')}" style="font-size: 0.9em;">Flavor 2:</label>
-                            <select id="flavor2-${item.name.replace(/\s/g, '-')}" class="gelato-flavor-select" aria-label="Select second flavor">
+                            <select id="flavor2-${item.name.replace(/\s/g, '-')}" class="gelato-flavor-select">
                                 ${item.flavors.map(flavor => `<option value="${flavor}">${flavor}</option>`).join('')}
                             </select>
                         </div>`;
@@ -731,9 +617,9 @@ button:focus, input:focus, select:focus {
                         <div class="item-details">${detailsHtml}</div>
                         <p class="item-price">RM${currentPrice.toFixed(2)}</p>
                         <div class="item-quantity-controls">
-                            <button class="quantity-btn minus-btn" aria-label="Decrease quantity">-</button>
+                            <button class="quantity-btn minus-btn">-</button>
                             <span class="quantity-display">1</span>
-                            <button class="quantity-btn plus-btn" aria-label="Increase quantity">+</button>
+                            <button class="quantity-btn plus-btn">+</button>
                         </div>
                         <div class="item-add-button">
                             <button>Add RM${currentPrice.toFixed(2)}</button>
@@ -755,7 +641,7 @@ button:focus, input:focus, select:focus {
 
                     const sizeSelect = itemDiv.querySelector('.item-sizes-select');
                     if (sizeSelect) {
-                        const flavor2Container = itemDiv.querySelector(`#flavor2-container-${item.name.replace(/\s/g, '-')}`);
+                        const flavor2Container = itemDiv.querySelector('#flavor2-container');
                         sizeSelect.addEventListener('change', (event) => {
                             const selectedPrice = parseFloat(event.target.value);
                             priceElement.textContent = `RM${selectedPrice.toFixed(2)}`;
@@ -810,6 +696,7 @@ button:focus, input:focus, select:focus {
                         
                         addToOrder({ name: itemName, price: basePrice, quantity: quantity });
                         
+                        // Reset quantity to 1 after adding to order
                         quantity = 1;
                         quantityDisplay.textContent = quantity;
                         updateButtonPrice();
@@ -821,11 +708,17 @@ button:focus, input:focus, select:focus {
             });
         };
 
-        // Initialize
-        loadSavedOrder();
+        // Initialize and Event Listeners
+        populateMenu();
         toggleBtn.addEventListener("click", toggleMenu);
         clearBtn.addEventListener("click", clearOrder);
         submitBtn.addEventListener("click", submitOrder);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("apCgXY03qnGQFDXBb");
+        })();
     </script>
 </body>
 </html>

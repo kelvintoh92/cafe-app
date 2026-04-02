@@ -421,43 +421,52 @@ button:focus, input:focus {
 
         // Menu Data
         const menu = [
-            { name: "Black", category: "Drinks", options: { "Hot": 10.0, "Iced": 11.0 } },
-            { name: "White", category: "Drinks", options: { "Hot": 12.0, "Iced": 13.0 } },
-            { name: "Matcha Latte", category: "Drinks", options: { "Hot": 14.0, "Iced": 15.0 } },
-            { name: "Hojicha Latte", category: "Drinks", options: { "Hot": 13.0, "Iced": 14.0 } },
-            { name: "Mont Blanc", category: "Drinks", options: { "Iced": 18.0 } },
-            { name: "Matcha Blanc", category: "Drinks", options: { "Iced": 18.0 } },
-            { name: "Matcha Cloud", category: "Drinks", options: { "Iced": 18.0 } },
-            { name: "Matcha Float", category: "Drinks", options: { "PB&J (peanut butter & jam)": 23.0, "Dirty Matcha": 23.0, "Taro Rice": 23.0, "Lemon Cheesecake ": 23.0, "Hazelnut Orange ": 23.0 }, description: "Matcha latte with a scoop of your choice of gelato." },
-            {
-                name: "Gelato",
-                category: "Gelato",
-                sizes: [
-                    { size: "Single Scoop", price: 15.0 },
-                    { size: "Double Scoop", price: 25.0 }
-                ],
-                flavors: ["PB&J (peanut butter & jam)", "Dirty Matcha", "Taro Rice", "Lemon Cheesecake","Hazelnut Orange","Roasted Soybean","Black Sesame","Lime Basil","Dark Choc Sea Salt"],
-                description: "Choose your size and your favorite flavor(s)."
-            },
-            {
-                name: "Gelato Taco Set",
-                category: "Gelato",
-                sizes: [
-                    { size: "Double Scoop", price: 25.0 }
-                ],
-                flavors: ["PB&J (peanut butter & jam)", "Dirty Matcha", "Taro Rice", "Lemon Cheesecake","Hazelnut Orange","Roasted Soybean","Black Sesame","Lime Basil","Dark Choc Sea Salt"],
-                description: "Choice of 2 flavours."
-                
-            },
-            {
-                name: "Add-on",
-                category: "Gelato",
-                sizes: [
-                    { size: "Taco Shell, price: 2.0  
-                    }
-                        ],
-            }
+    { name: "Black", category: "Drinks", options: { "Hot": 10.0, "Iced": 11.0 } },
+    { name: "White", category: "Drinks", options: { "Hot": 12.0, "Iced": 13.0 } },
+    { name: "Matcha Latte", category: "Drinks", options: { "Hot": 14.0, "Iced": 15.0 } },
+    { name: "Hojicha Latte", category: "Drinks", options: { "Hot": 13.0, "Iced": 14.0 } },
+    { name: "Mont Blanc", category: "Drinks", options: { "Iced": 18.0 } },
+    { name: "Matcha Blanc", category: "Drinks", options: { "Iced": 18.0 } },
+    { name: "Matcha Cloud", category: "Drinks", options: { "Iced": 18.0 } },
+    {
+        name: "Matcha Float",
+        category: "Drinks",
+        options: {
+            "PB&J (peanut butter & jam)": 23.0,
+            "Dirty Matcha": 23.0,
+            "Taro Rice": 23.0,
+            "Lemon Cheesecake": 23.0,
+            "Hazelnut Orange": 23.0
+        },
+        description: "Matcha latte with a scoop of your choice of gelato."
+    },
+    {
+        name: "Gelato",
+        category: "Gelato",
+        sizes: [
+            { size: "Single Scoop", price: 15.0 },
+            { size: "Double Scoop", price: 25.0 }
+        ],
+        flavors: ["PB&J (peanut butter & jam)", "Dirty Matcha", "Taro Rice", "Lemon Cheesecake", "Hazelnut Orange", "Roasted Soybean", "Black Sesame", "Lime Basil", "Dark Choc Sea Salt"],
+        description: "Choose your size and your favorite flavor(s)."
+    },
+    {
+        name: "Gelato Taco Set",
+        category: "Gelato",
+        sizes: [
+            { size: "Double Scoop", price: 25.0 }
+        ],
+        flavors: ["PB&J (peanut butter & jam)", "Dirty Matcha", "Taro Rice", "Lemon Cheesecake", "Hazelnut Orange", "Roasted Soybean", "Black Sesame", "Lime Basil", "Dark Choc Sea Salt"],
+        description: "Choice of 2 flavours."
+    },
+    {
+        name: "Add-on",
+        category: "Gelato",
+        sizes: [
+            { size: "Taco Shell", price: 2.0 }
         ]
+    }
+];
 
         // DOM Elements
         const menuDiv = document.getElementById("menu");
